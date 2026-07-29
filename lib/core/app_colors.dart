@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 
 class AppColors {
   AppColors._();
-  static const Color btnclr = Color.fromARGB(255, 0, 158, 97);
+  static const Color primaryclr = Color.fromARGB(255, 0, 158, 97);
+  static const Color secondaryclr = Color.fromARGB(255, 65, 95, 141);
+  static const Color txtfieldclr = Color.fromARGB(255, 227, 241, 255);
   static const LinearGradient bgclr = LinearGradient(
     colors: [
       Color.fromARGB(255, 255, 255, 255),
