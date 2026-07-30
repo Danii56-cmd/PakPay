@@ -67,7 +67,7 @@ class _SplashScreenState extends State<SplashScreen> {
                     TextSpan(
                       text: 'Pay',
                       style: TextStyle(
-                        color: AppColors.btnclr,
+                        color: AppColors.primaryclr,
                         fontSize: 28.sp,
                         fontWeight: FontWeight.w800,
                       ),
@@ -82,8 +82,8 @@ class _SplashScreenState extends State<SplashScreen> {
               ),
               Spacer(),
               CircularProgressIndicator(
-                color: AppColors.btnclr,
-                backgroundColor: AppColors.btnclr.withValues(alpha: 0.15),
+                color: AppColors.primaryclr,
+                backgroundColor: AppColors.primaryclr.withValues(alpha: 0.15),
               ),
               SizedBox(height: 20.h),
               Text(

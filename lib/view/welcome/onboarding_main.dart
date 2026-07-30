@@ -81,7 +81,7 @@ class _OnboardingMainState extends State<OnboardingMain> {
                   width: isActive ? 20.w : 8.w,
                   decoration: BoxDecoration(
                     color: isActive
-                        ? AppColors.btnclr
+                        ? AppColors.primaryclr
                         : Colors.grey.withValues(alpha: 0.3),
                     borderRadius: BorderRadius.circular(10.r),
                   ),
