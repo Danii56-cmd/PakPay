@@ -4,6 +4,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:pakpay/core/app_colors.dart';
 import 'package:pakpay/core/app_constants.dart';
 import 'package:pakpay/sharedwidgets/primary_button.dart';
+import 'package:pakpay/view/auth/createaccount/step1.dart';
 import 'package:pakpay/view/auth/login_screen.dart';
 
 class WelcomeScreen extends StatelessWidget {
@@ -75,7 +76,12 @@ class WelcomeScreen extends StatelessWidget {
               SizedBox(height: 10.h),
               PrimaryButton(
                 text: "Create Account",
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => const Step1Page()),
+                  );
+                },
                 width: 320.w,
                 textColor: Colors.white,
                 borderColor: Colors.transparent,

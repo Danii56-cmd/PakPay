@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:pakpay/core/app_colors.dart';
 import 'package:pakpay/sharedwidgets/primary_button.dart';
+import 'package:pakpay/view/auth/createaccount/step1.dart';
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({super.key});
@@ -154,7 +155,7 @@ class LoginScreen extends StatelessWidget {
                     Switch(
                       value: false,
                       onChanged: (value) {},
-                      activeColor: Colors.white,
+                      activeThumbColor: Colors.white,
                       activeTrackColor: AppColors.txtfieldclr,
                       inactiveThumbColor: Colors.white,
                       inactiveTrackColor: AppColors.txtfieldclr,
@@ -233,7 +234,14 @@ class LoginScreen extends StatelessWidget {
                       ),
                     ),
                     GestureDetector(
-                      onTap: () {},
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const Step1Page(),
+                          ),
+                        );
+                      },
                       child: Text(
                         "Sign Up",
                         style: TextStyle(
