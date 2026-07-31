@@ -5,6 +5,7 @@ import 'package:pakpay/core/app_constants.dart';
 import 'package:pakpay/sharedwidgets/primary_button.dart';
 import 'package:pakpay/utills/pakistan_locations.dart';
 import 'package:pakpay/view/auth/createaccount/appbar_steps_widget.dart';
+import 'package:pakpay/view/auth/createaccount/step4.dart';
 import 'package:pakpay/view/auth/login_screen.dart';
 
 class Step3Page extends StatefulWidget {
@@ -472,7 +473,12 @@ class _Step3PageState extends State<Step3Page> {
               PrimaryButton(
                 text: "Continue",
                 icon: Icons.arrow_forward,
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => Step4Page()),
+                  );
+                },
               ),
               SizedBox(height: 10.h),
               Row(
