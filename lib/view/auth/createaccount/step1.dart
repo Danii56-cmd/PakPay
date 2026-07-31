@@ -288,6 +288,10 @@ class _Step1PageState extends State<Step1Page> {
                               "Please agree to the terms and privacy policy",
                             ),
                             backgroundColor: Colors.red,
+                            behavior: SnackBarBehavior.floating,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10.r),
+                            ),
                           ),
                         );
                       },

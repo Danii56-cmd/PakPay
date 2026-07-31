@@ -11,4 +11,5 @@ class AppConstants {
   static const String onBoarding3bio = 'assets/images/onboarding3bio.svg';
   static const String onBoarding3face = 'assets/images/onboarding3face.svg';
   static const String welcomeScreenBg = 'assets/images/Welcomescreen_bg.png';
+  static const String mapPreview = 'assets/images/mappreview.png';
 }
