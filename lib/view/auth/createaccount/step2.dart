@@ -311,7 +311,18 @@ class _Step2PageState extends State<Step2Page> {
                           ),
                         );
                       }
-                    : () {},
+                    : () {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            content: const Text("Please fill all the fields"),
+                            backgroundColor: Colors.red,
+                            behavior: SnackBarBehavior.floating,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10.r),
+                            ),
+                          ),
+                        );
+                      },
               ),
               SizedBox(height: 20.h),
 
