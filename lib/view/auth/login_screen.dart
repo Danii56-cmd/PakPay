@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:pakpay/core/app_colors.dart';
 import 'package:pakpay/sharedwidgets/primary_button.dart';
 import 'package:pakpay/view/auth/createaccount/step1.dart';
+import 'package:pakpay/view/dashboard_screens.dart';
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({super.key});
@@ -186,7 +187,18 @@ class LoginScreen extends StatelessWidget {
                   ],
                 ),
                 SizedBox(height: 20.h),
-                PrimaryButton(width: 320.w, text: "Login", onPressed: () {}),
+                PrimaryButton(
+                  width: 320.w,
+                  text: "Login",
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => DashboardScreen(),
+                      ),
+                    );
+                  },
+                ),
                 SizedBox(height: 30.h),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
