@@ -4,17 +4,17 @@ import 'package:intl_phone_field/intl_phone_field.dart';
 import 'package:pakpay/core/app_colors.dart';
 import 'package:pakpay/sharedwidgets/primary_button.dart';
 import 'package:pakpay/view/auth/createaccount/appbar_steps_widget.dart';
-import 'package:pakpay/view/auth/createaccount/step2.dart';
+import 'package:pakpay/view/auth/createaccount/personal_information.dart';
 import 'package:pakpay/view/auth/login_screen.dart';
 
-class Step1Page extends StatefulWidget {
-  const Step1Page({super.key});
+class CreateAccountScreen extends StatefulWidget {
+  const CreateAccountScreen({super.key});
 
   @override
-  State<Step1Page> createState() => _Step1PageState();
+  State<CreateAccountScreen> createState() => _CreateAccountScreenState();
 }
 
-class _Step1PageState extends State<Step1Page> {
+class _CreateAccountScreenState extends State<CreateAccountScreen> {
   bool agreeTerms = false;
   bool agreePrivacy = false;
 
@@ -277,7 +277,8 @@ class _Step1PageState extends State<Step1Page> {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => const Step2Page(),
+                            builder: (context) =>
+                                const PersonalInformationScreen(),
                           ),
                         );
                       }

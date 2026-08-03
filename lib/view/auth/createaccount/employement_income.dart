@@ -4,17 +4,18 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:pakpay/core/app_colors.dart';
 import 'package:pakpay/sharedwidgets/primary_button.dart';
 import 'package:pakpay/view/auth/createaccount/appbar_steps_widget.dart';
-import 'package:pakpay/view/auth/createaccount/step5.dart';
+import 'package:pakpay/view/auth/createaccount/mobile_verification.dart';
 import 'package:pakpay/view/auth/login_screen.dart';
 
-class Step4Page extends StatefulWidget {
-  const Step4Page({super.key});
+class EmployementIncomeScreen extends StatefulWidget {
+  const EmployementIncomeScreen({super.key});
 
   @override
-  State<Step4Page> createState() => _Step4PageState();
+  State<EmployementIncomeScreen> createState() =>
+      _EmployementIncomeScreenState();
 }
 
-class _Step4PageState extends State<Step4Page> {
+class _EmployementIncomeScreenState extends State<EmployementIncomeScreen> {
   int selectedIndex = -1;
   String? selectedSource;
   String? selectedSalaryRange;
@@ -451,7 +452,9 @@ class _Step4PageState extends State<Step4Page> {
                 onPressed: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => const Step5Page()),
+                    MaterialPageRoute(
+                      builder: (context) => const MobileVerificationScreen(),
+                    ),
                   );
                 },
               ),
