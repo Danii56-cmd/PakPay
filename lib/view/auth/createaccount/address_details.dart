@@ -5,17 +5,17 @@ import 'package:pakpay/core/app_constants.dart';
 import 'package:pakpay/sharedwidgets/primary_button.dart';
 import 'package:pakpay/utills/pakistan_locations.dart';
 import 'package:pakpay/view/auth/createaccount/appbar_steps_widget.dart';
-import 'package:pakpay/view/auth/createaccount/step4.dart';
+import 'package:pakpay/view/auth/createaccount/employement_income.dart';
 import 'package:pakpay/view/auth/login_screen.dart';
 
-class Step3Page extends StatefulWidget {
-  const Step3Page({super.key});
+class AddressDetailsScreen extends StatefulWidget {
+  const AddressDetailsScreen({super.key});
 
   @override
-  State<Step3Page> createState() => _Step3PageState();
+  State<AddressDetailsScreen> createState() => _AddressDetailsScreenState();
 }
 
-class _Step3PageState extends State<Step3Page> {
+class _AddressDetailsScreenState extends State<AddressDetailsScreen> {
   String? selectedProvince;
   String? selectedCity;
   @override
@@ -476,7 +476,9 @@ class _Step3PageState extends State<Step3Page> {
                 onPressed: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => Step4Page()),
+                    MaterialPageRoute(
+                      builder: (context) => EmployementIncomeScreen(),
+                    ),
                   );
                 },
               ),

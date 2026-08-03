@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:pakpay/core/app_colors.dart';
 
 class StepAppBar extends StatelessWidget implements PreferredSizeWidget {
   final int currentStep;
@@ -21,7 +22,7 @@ class StepAppBar extends StatelessWidget implements PreferredSizeWidget {
       // surfaceTintColor: Colors.white,
       centerTitle: true,
       leading: IconButton(
-        icon: const Icon(Icons.arrow_back, color: Colors.black),
+        icon: const Icon(Icons.arrow_back, color: AppColors.primaryclr),
         onPressed: onBack ?? () => Navigator.pop(context),
       ),
       title: Column(
