@@ -12,4 +12,7 @@ class AppConstants {
   static const String onBoarding3face = 'assets/images/onboarding3face.svg';
   static const String welcomeScreenBg = 'assets/images/Welcomescreen_bg.png';
   static const String mapPreview = 'assets/images/mappreview.png';
+  static const String step5 = "assets/images/step5_container.png";
+  static const String emailVerification = "assets/images/step6.png";
+  static const String identityVerify = "assets/images/identity_verify.png";
 }

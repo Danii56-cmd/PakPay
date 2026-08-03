@@ -3,17 +3,18 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:pakpay/core/app_colors.dart';
 import 'package:pakpay/sharedwidgets/primary_button.dart';
 import 'package:pakpay/view/auth/createaccount/appbar_steps_widget.dart';
-import 'package:pakpay/view/auth/createaccount/step3.dart';
+import 'package:pakpay/view/auth/createaccount/address_details.dart';
 import 'package:pakpay/view/auth/login_screen.dart';
 
-class Step2Page extends StatefulWidget {
-  const Step2Page({super.key});
+class PersonalInformationScreen extends StatefulWidget {
+  const PersonalInformationScreen({super.key});
 
   @override
-  State<Step2Page> createState() => _Step2PageState();
+  State<PersonalInformationScreen> createState() =>
+      _PersonalInformationScreenState();
 }
 
-class _Step2PageState extends State<Step2Page> {
+class _PersonalInformationScreenState extends State<PersonalInformationScreen> {
   final TextEditingController cnicController = TextEditingController();
   final TextEditingController dobController = TextEditingController();
   final TextEditingController fatherNameController = TextEditingController();
@@ -307,7 +308,7 @@ class _Step2PageState extends State<Step2Page> {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => const Step3Page(),
+                            builder: (context) => const AddressDetailsScreen(),
                           ),
                         );
                       }
@@ -315,7 +316,7 @@ class _Step2PageState extends State<Step2Page> {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => const Step3Page(),
+                            builder: (context) => const AddressDetailsScreen(),
                           ),
                         );
                         // ScaffoldMessenger.of(context).showSnackBar(
