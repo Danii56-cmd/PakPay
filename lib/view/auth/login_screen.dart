@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:pakpay/core/app_colors.dart';
 import 'package:pakpay/sharedwidgets/primary_button.dart';
-import 'package:pakpay/view/auth/createaccount/step1.dart';
 import 'package:pakpay/view/dashboard_screens.dart';
 import 'package:pakpay/view/auth/createaccount/create_account.dart';
+import 'package:pakpay/view/main_screen.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -173,58 +173,36 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                   SizedBox(height: 20.h),
                   Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Switch(
-                        value: _rememberMe,
-                        onChanged: (value) {
-                          setState(() {
-                            _rememberMe = value;
-                          });
-                        },
-                        activeThumbColor: Colors.white,
-                        activeTrackColor: AppColors.primaryclr,
-                        inactiveThumbColor: Colors.white,
-                        inactiveTrackColor: AppColors.txtfieldclr,
-                        trackOutlineColor: WidgetStateProperty.all(
-                          Colors.transparent,
-                        ),
+                      Row(
+                        children: [
+                          Switch(
+                            value: _rememberMe,
+                            onChanged: (value) {
+                              setState(() {
+                                _rememberMe = value;
+                              });
+                            },
+                            activeThumbColor: Colors.white,
+                            activeTrackColor: AppColors.primaryclr,
+                            inactiveThumbColor: Colors.white,
+                            inactiveTrackColor: AppColors.txtfieldclr,
+                            trackOutlineColor: WidgetStateProperty.all(
+                              Colors.transparent,
+                            ),
+                          ),
+                          SizedBox(width: 8.w),
+                          Text(
+                            "Remember Me",
+                            style: TextStyle(
+                              color: AppColors.secondaryclr,
+                              fontSize: 12.sp,
+                              fontWeight: FontWeight.w400,
+                            ),
+                          ),
+                        ],
                       ),
-                    ),
-                  ],
-                ),
-                SizedBox(height: 20.h),
-                PrimaryButton(
-                  width: 320.w,
-                  text: "Login",
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => DashboardScreen(),
-                      ),
-                    );
-                  },
-                ),
-                SizedBox(height: 30.h),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Expanded(
-                      child: Divider(color: Colors.black12, thickness: 1),
-                    ),
-                    Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 8.w),
-                      child: Text(
-                        "Or Secure Access",
-                      Text(
-                        "Remember Me",
-                        style: TextStyle(
-                          color: AppColors.secondaryclr,
-                          fontSize: 12.sp,
-                          fontWeight: FontWeight.w400,
-                        ),
-                      ),
-                      Spacer(),
                       GestureDetector(
                         onTap: () {},
                         child: Text(
@@ -239,7 +217,16 @@ class _LoginScreenState extends State<LoginScreen> {
                     ],
                   ),
                   SizedBox(height: 20.h),
-                  PrimaryButton(width: 320.w, text: "Login", onPressed: () {}),
+                  PrimaryButton(
+                    width: 320.w,
+                    text: "Login",
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => MainScreen()),
+                      );
+                    },
+                  ),
                   SizedBox(height: 30.h),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -267,11 +254,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   PrimaryButton(
                     icon: Icons.fingerprint,
                     text: "Continue with Biometrics",
-                    iconOnLeft: true,
                     width: 320.w,
-                    backgroundColor: Colors.transparent,
-                    textColor: AppColors.secondaryclr,
-                    borderColor: AppColors.secondaryclr,
                     onPressed: () {},
                   ),
                   SizedBox(height: 40.h),

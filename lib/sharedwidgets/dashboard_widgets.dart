@@ -1,193 +1,165 @@
 import 'package:flutter/material.dart';
 import 'package:pakpay/core/app_colors.dart';
-import 'package:pakpay/view/dashboard_screens.dart';
-import 'package:pakpay/view/more_screen.dart';
+import 'package:pakpay/sharedwidgets/app_state.dart';
+import 'package:pakpay/view/QR_code_screen.dart';
+import 'package:pakpay/view/contact_picker_screen.dart';
+import 'package:pakpay/view/my_qrcode.dart';
 
 Widget buildAppBar() {
+  final user = AppState.instance.user;
+  final initials =
+      '${user.firstName.isNotEmpty ? user.firstName[0] : ''}${user.lastName.isNotEmpty ? user.lastName[0] : ''}';
+
   return Row(
     children: [
-      const CircleAvatar(
-        radius: 20,
-        backgroundColor: Color(0xFFE3F1FF),
-        backgroundImage: NetworkImage('https://i.pravatar.cc/150?img=12'),
-      ),
-      const SizedBox(width: 10),
-      const Text(
-        'PakPay',
-        style: TextStyle(
-          fontSize: 24,
-          fontWeight: FontWeight.bold,
-          color: AppColors.primaryclr,
+      CircleAvatar(
+        radius: 22,
+        backgroundColor: AppColors.primaryclr,
+        child: Text(
+          initials,
+          style: const TextStyle(
+            color: Colors.white,
+            fontWeight: FontWeight.bold,
+          ),
         ),
       ),
-      const Spacer(),
+      const SizedBox(width: 12),
+      Expanded(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              '${user.firstName} ${user.lastName}',
+              style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+            ),
+            Text(
+              user.phone,
+              style: const TextStyle(color: Colors.black54, fontSize: 12),
+            ),
+          ],
+        ),
+      ),
       Container(
-        padding: const EdgeInsets.all(8),
+        padding: const EdgeInsets.all(10),
         decoration: BoxDecoration(
+          color: Colors.white,
           shape: BoxShape.circle,
-          border: Border.all(color: Colors.grey.shade300),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withValues(alpha: 0.05),
+              blurRadius: 8,
+            ),
+          ],
         ),
-        child: const Icon(
-          Icons.notifications_none,
-          size: 22,
-          color: Colors.black87,
-        ),
+        child: const Icon(Icons.notifications_none, size: 20),
       ),
     ],
   );
 }
 
 Widget buildWelcome() {
-  return const Column(
-    crossAxisAlignment: CrossAxisAlignment.start,
-    children: [
-      Text('Welcome back,', style: TextStyle(fontSize: 15, color: Colors.grey)),
-      SizedBox(height: 2),
-      Text(
-        'Khan',
-        style: TextStyle(
-          fontSize: 22,
-          fontWeight: FontWeight.bold,
-          color: Colors.black87,
-        ),
-      ),
-    ],
+  final user = AppState.instance.user;
+  return Text(
+    'Welcome back, ${user.firstName} 👋',
+    style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
   );
 }
 
-// ---------- Quick actions ----------
-  Widget buildQuickActions(BuildContext context) {
-    final actions = [
-      {
-        'icon': Icons.send,
-        'label': 'Send',
-        'onTap': () {
-          print("Send tapped");
-        },
-      },
-      {
-        'icon': Icons.add_card,
-        'label': 'Deposit',
-        'onTap': () {
-          print("Deposit tapped");
-        },
-      },
-      {
-        'icon': Icons.receipt_long,
-        'label': 'Bills',
-        'onTap': () {
-          print("Bills tapped");
-        },
-      },
-      {
-        'icon': Icons.more_horiz,
-        'label': 'More',
-        'onTap': () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => AllActionsScreen()),
-          );
-        },
-      },
-    ];
+Widget buildQuickActions(BuildContext context) {
+  final actions = [
+    {'icon': Icons.send_outlined, 'label': 'Send'},
+    {'icon': Icons.qr_code_2, 'label': 'Receive'},
+    {'icon': Icons.add_card_outlined, 'label': 'Top Up'},
+    {'icon': Icons.receipt_long_outlined, 'label': 'Bills'},
+  ];
+
+  void handle(String label) {
+    switch (label) {
+      case 'Send':
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (_) => const ContactPickerScreen()),
+        );
+        break;
+      case 'Receive':
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (_) => const MyQrScreen()),
+        );
+        break;
+      default:
+        ScaffoldMessenger.of(
+          context,
+        ).showSnackBar(SnackBar(content: Text('$label coming soon')));
+    }
+  }
+
   return Row(
     mainAxisAlignment: MainAxisAlignment.spaceBetween,
     children: actions.map((a) {
-      return InkWell(
-  borderRadius: BorderRadius.circular(40),
-  onTap: a['onTap'] as VoidCallback,
-  child: Column(
-    children: [
-      Container(
-        width: 54,
-        height: 54,
-        decoration: BoxDecoration(
-          color: AppColors.txtfieldclr,
-          shape: BoxShape.circle,
+      return GestureDetector(
+        onTap: () => handle(a['label'] as String),
+        child: Column(
+          children: [
+            Container(
+              width: 54,
+              height: 54,
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(18),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black.withValues(alpha: 0.05),
+                    blurRadius: 8,
+                  ),
+                ],
+              ),
+              child: Icon(a['icon'] as IconData, color: AppColors.primaryclr),
+            ),
+            const SizedBox(height: 6),
+            Text(a['label'] as String, style: const TextStyle(fontSize: 12)),
+          ],
         ),
-        child: Icon(
-          a['icon'] as IconData,
-          color: AppColors.primaryclr,
-        ),
-      ),
-      const SizedBox(height: 8),
-      Text(
-        a['label'] as String,
-        style: const TextStyle(
-          fontSize: 13,
-          color: Colors.black87,
-        ),
-      ),
-    ],
-  ),
-);
+      );
     }).toList(),
   );
 }
 
-// ---------- Save smarter banner ----------
 Widget buildSaveSmarterBanner() {
   return Container(
-    width: double.infinity,
-    padding: const EdgeInsets.all(18),
+    padding: const EdgeInsets.all(16),
     decoration: BoxDecoration(
-      color: AppColors.txtfieldclr,
+      color: const Color(0xFFFFF3E0),
       borderRadius: BorderRadius.circular(20),
     ),
     child: Row(
-      children: [
+      children: const [
+        Icon(Icons.savings_outlined, color: Color(0xFFE17055), size: 30),
+        SizedBox(width: 12),
         Expanded(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                'Save Smarter',
-                style: TextStyle(
-                  fontSize: 17,
-                  fontWeight: FontWeight.bold,
-                  color: AppColors.secondaryclr,
-                ),
-              ),
-              const SizedBox(height: 4),
-              Text(
-                'Automate your savings with Round-Up vaults.',
-                style: TextStyle(
-                  fontSize: 13,
-                  color: AppColors.secondaryclr.withOpacity(0.8),
-                ),
-              ),
-            ],
+          child: Text(
+            'Save smarter — round up your payments and grow your savings automatically.',
+            style: TextStyle(fontSize: 13),
           ),
         ),
-        const SizedBox(width: 12),
-        Icon(Icons.savings_outlined, size: 34, color: AppColors.primaryclr),
       ],
     ),
   );
 }
 
-// ---------- Recent activity header ----------
-Widget buildRecentActivityHeader() {
+Widget buildRecentActivityHeader({required VoidCallback onViewAll}) {
   return Row(
     mainAxisAlignment: MainAxisAlignment.spaceBetween,
     children: [
       const Text(
         'Recent Activity',
-        style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+        style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
       ),
-      Text(
-        'View All',
-        style: TextStyle(
-          fontSize: 14,
-          fontWeight: FontWeight.w600,
-          color: AppColors.primaryclr,
-        ),
-      ),
+      TextButton(onPressed: onViewAll, child: const Text('View All')),
     ],
   );
 }
 
-// ---------- Transaction tile ----------
 Widget buildTransactionTile({
   required IconData icon,
   required String title,
@@ -201,11 +173,7 @@ Widget buildTransactionTile({
       color: Colors.white,
       borderRadius: BorderRadius.circular(16),
       boxShadow: [
-        BoxShadow(
-          color: Colors.black.withOpacity(0.04),
-          blurRadius: 10,
-          offset: const Offset(0, 4),
-        ),
+        BoxShadow(color: Colors.black.withValues(alpha: 0.04), blurRadius: 8),
       ],
     ),
     child: Row(
@@ -214,27 +182,27 @@ Widget buildTransactionTile({
           width: 42,
           height: 42,
           decoration: BoxDecoration(
-            color: const Color(0xFFF1F2F6),
+            color: (isCredit ? Colors.green : Colors.redAccent).withValues(
+              alpha: 0.1,
+            ),
             shape: BoxShape.circle,
           ),
-          child: Icon(icon, color: Colors.black54, size: 20),
+          child: Icon(
+            icon,
+            size: 20,
+            color: isCredit ? Colors.green : Colors.redAccent,
+          ),
         ),
         const SizedBox(width: 12),
         Expanded(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                title,
-                style: const TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 15,
-                ),
-              ),
+              Text(title, style: const TextStyle(fontWeight: FontWeight.w600)),
               const SizedBox(height: 2),
               Text(
                 subtitle,
-                style: const TextStyle(fontSize: 12, color: Colors.grey),
+                style: const TextStyle(fontSize: 12, color: Colors.black54),
               ),
             ],
           ),
@@ -243,8 +211,7 @@ Widget buildTransactionTile({
           amount,
           style: TextStyle(
             fontWeight: FontWeight.bold,
-            fontSize: 14,
-            color: isCredit ? AppColors.primaryclr : Colors.red,
+            color: isCredit ? Colors.green : Colors.redAccent,
           ),
         ),
       ],

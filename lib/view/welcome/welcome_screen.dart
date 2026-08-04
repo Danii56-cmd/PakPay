@@ -85,18 +85,14 @@ class WelcomeScreen extends StatelessWidget {
                   );
                 },
                 width: 320.w,
-                textColor: Colors.white,
-                borderColor: Colors.transparent,
-                backgroundColor: Colors.blue[700],
+               
               ),
               SizedBox(height: 10.h),
               PrimaryButton(
                 text: "Register as Merchant",
                 onPressed: () {},
                 width: 320.w,
-                textColor: Colors.black,
-                backgroundColor: Colors.transparent,
-                borderColor: Colors.black12,
+                
               ),
               Spacer(),
               Row(

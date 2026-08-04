@@ -64,7 +64,6 @@ class OnboardingScreen1 extends StatelessWidget {
               PrimaryButton(
                 width: 320.w,
                 text: "Next",
-                textColor: Colors.white,
                 icon: Icons.arrow_forward,
                 onPressed: onNext ?? () {},
               ),

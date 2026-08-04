@@ -8,7 +8,7 @@ Widget buildSectionLabel(String text) {
         fontSize: 13,
         fontWeight: FontWeight.w600,
         letterSpacing: 0.5,
-        color: AppColors.secondaryclr.withOpacity(0.7),
+        color: AppColors.secondaryclr.withValues(alpha: 0.7),
       ),
     );
   }
