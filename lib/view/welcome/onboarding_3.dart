@@ -91,7 +91,6 @@ class OnboardingScreen3 extends StatelessWidget {
               PrimaryButton(
                 width: 320.w,
                 text: "Get Started",
-                textColor: Colors.white,
                 icon: Icons.arrow_forward,
                 onPressed: onNext ?? () {},
               ),

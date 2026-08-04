@@ -2,458 +2,142 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:pakpay/core/app_colors.dart';
 import 'package:pakpay/core/app_constants.dart';
+import 'package:pakpay/sharedwidgets/already_have_account_row.dart';
+import 'package:pakpay/sharedwidgets/app_drop_down_field.dart';
+
 import 'package:pakpay/sharedwidgets/primary_button.dart';
+import 'package:pakpay/sharedwidgets/reusbale_textfiel.dart';
+import 'package:pakpay/sharedwidgets/screen_header.dart';
 import 'package:pakpay/utills/pakistan_locations.dart';
+import 'package:pakpay/view/auth/Models/user_model.dart';
 import 'package:pakpay/view/auth/createaccount/appbar_steps_widget.dart';
 import 'package:pakpay/view/auth/createaccount/employement_income.dart';
-import 'package:pakpay/view/auth/login_screen.dart';
 
 class AddressDetailsScreen extends StatefulWidget {
-  const AddressDetailsScreen({super.key});
+  const AddressDetailsScreen({super.key, required this.user});
+
+  final UserModel user;
 
   @override
   State<AddressDetailsScreen> createState() => _AddressDetailsScreenState();
 }
 
 class _AddressDetailsScreenState extends State<AddressDetailsScreen> {
-  String? selectedProvince;
-  String? selectedCity;
+  final _addressController = TextEditingController();
+  final _postalCodeController = TextEditingController();
+
+  String? _selectedProvince;
+  String? _selectedCity;
+
+  @override
+  void dispose() {
+    _addressController.dispose();
+    _postalCodeController.dispose();
+    super.dispose();
+  }
+
+  void _handleContinue() {
+    final updatedUser = widget.user.copyWith(
+      province: _selectedProvince,
+      city: _selectedCity,
+      residentialAddress: _addressController.text.trim(),
+      postalCode: _postalCodeController.text.trim(),
+    );
+
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => EmploymentIncomeScreen(user: updatedUser),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: const StepAppBar(currentStep: 3),
       body: Container(
-        decoration: BoxDecoration(gradient: AppColors.bgclr),
+        decoration: const BoxDecoration(gradient: AppColors.bgclr),
         child: SingleChildScrollView(
           padding: const EdgeInsets.all(20),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // SizedBox(height: 20.h),
-              Text(
-                "Address Details",
-                style: TextStyle(fontSize: 26.sp, fontWeight: FontWeight.w600),
+              const ScreenHeader(
+                title: "Address Details",
+                subtitle:
+                    'Please provide your current residential address for account verification.',
               ),
               SizedBox(height: 10.h),
-              Text(
-                'Please provide your current residential address for account verification.',
-                style: TextStyle(
-                  fontSize: 14.sp,
-                  fontWeight: FontWeight.w400,
-                  color: Colors.black87,
-                ),
-              ),
-              SizedBox(height: 10.h),
-              Container(
-                padding: EdgeInsets.all(20),
-                width: double.infinity,
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(14.r),
-                  border: Border.all(color: Colors.grey.shade50, width: 1.w),
-                ),
+
+              _SectionCard(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    // Province label
-                    Text(
-                      "Province",
-                      style: TextStyle(
-                        fontSize: 14.sp,
-                        fontWeight: FontWeight.w500,
-                        color: AppColors.secondaryclr,
-                      ),
-                    ),
-                    SizedBox(height: 6.h),
-
-                    // Province dropdown
-                    DropdownButtonFormField<String>(
-                      initialValue: selectedProvince,
-                      isExpanded: true,
-                      icon: Icon(
-                        Icons.keyboard_arrow_down_rounded,
-                        color: AppColors.primaryclr,
-                      ),
-                      dropdownColor: Colors.white,
-                      borderRadius: BorderRadius.circular(14.r),
-                      hint: Text(
-                        "Select your province",
-                        style: TextStyle(
-                          color: Colors.black45,
-                          fontSize: 15.sp,
-                          fontWeight: FontWeight.w400,
-                        ),
-                      ),
-                      style: TextStyle(
-                        color: Colors.black87,
-                        fontSize: 15.sp,
-                        fontWeight: FontWeight.w500,
-                      ),
-                      decoration: InputDecoration(
-                        filled: true,
-                        fillColor: AppColors.txtfieldclr,
-                        contentPadding: EdgeInsets.symmetric(
-                          horizontal: 16.w,
-                          vertical: 16.h,
-                        ),
-                        border: OutlineInputBorder(
-                          borderSide: BorderSide(
-                            color: Colors.grey.shade200,
-                            width: 1.w,
-                          ),
-                          borderRadius: BorderRadius.circular(14.r),
-                        ),
-                        enabledBorder: OutlineInputBorder(
-                          borderSide: BorderSide(
-                            color: Colors.grey.shade200,
-                            width: 1.w,
-                          ),
-                          borderRadius: BorderRadius.circular(14.r),
-                        ),
-                        focusedBorder: OutlineInputBorder(
-                          borderSide: BorderSide(
-                            color: AppColors.primaryclr,
-                            width: 1.5.w,
-                          ),
-                          borderRadius: BorderRadius.circular(14.r),
-                        ),
-                      ),
-                      items: PakistanLocations.provinces
-                          .map(
-                            (province) => DropdownMenuItem(
-                              value: province,
-                              child: Text(
-                                province,
-                                style: TextStyle(fontSize: 15.sp),
-                              ),
-                            ),
-                          )
-                          .toList(),
+                    AppDropdownField<String>(
+                      label: "Province",
+                      hint: "Select your province",
+                      value: _selectedProvince,
+                      items: PakistanLocations.provinces,
+                      itemLabel: (p) => p,
                       onChanged: (value) {
                         setState(() {
-                          selectedProvince = value;
-                          selectedCity = null;
+                          _selectedProvince = value;
+                          _selectedCity = null;
                         });
                       },
                     ),
                     SizedBox(height: 15.h),
-                    // City label
-                    Text(
-                      "City",
-                      style: TextStyle(
-                        fontSize: 14.sp,
-                        fontWeight: FontWeight.w500,
-                        color: AppColors.secondaryclr,
-                      ),
-                    ),
-                    SizedBox(height: 6.h),
-
-                    // City dropdown
-                    DropdownButtonFormField<String>(
-                      initialValue: selectedCity,
-                      isExpanded: true,
-                      icon: Icon(
-                        Icons.keyboard_arrow_down_rounded,
-                        color: selectedProvince == null
-                            ? Colors.grey.shade400
-                            : AppColors.primaryclr,
-                      ),
-                      dropdownColor: Colors.white,
-                      borderRadius: BorderRadius.circular(14.r),
-                      hint: Text(
-                        selectedProvince == null
-                            ? "Select province first"
-                            : "Select your city",
-                        style: TextStyle(
-                          color: Colors.black45,
-                          fontSize: 15.sp,
-                          fontWeight: FontWeight.w400,
-                        ),
-                      ),
-                      style: TextStyle(
-                        color: Colors.black87,
-                        fontSize: 15.sp,
-                        fontWeight: FontWeight.w500,
-                      ),
-                      decoration: InputDecoration(
-                        filled: true,
-                        fillColor: selectedProvince == null
-                            ? Colors.grey.shade100
-                            : AppColors.txtfieldclr,
-                        contentPadding: EdgeInsets.symmetric(
-                          horizontal: 16.w,
-                          vertical: 16.h,
-                        ),
-                        border: OutlineInputBorder(
-                          borderSide: BorderSide(
-                            color: Colors.grey.shade200,
-                            width: 1.w,
-                          ),
-                          borderRadius: BorderRadius.circular(14.r),
-                        ),
-                        enabledBorder: OutlineInputBorder(
-                          borderSide: BorderSide(
-                            color: Colors.grey.shade200,
-                            width: 1.w,
-                          ),
-                          borderRadius: BorderRadius.circular(14.r),
-                        ),
-                        disabledBorder: OutlineInputBorder(
-                          borderSide: BorderSide(
-                            color: Colors.grey.shade200,
-                            width: 1.w,
-                          ),
-                          borderRadius: BorderRadius.circular(14.r),
-                        ),
-                        focusedBorder: OutlineInputBorder(
-                          borderSide: BorderSide(
-                            color: AppColors.primaryclr,
-                            width: 1.5.w,
-                          ),
-                          borderRadius: BorderRadius.circular(14.r),
-                        ),
-                        helperText: selectedProvince == null
-                            ? "Please select a province first"
-                            : null,
-                        helperStyle: TextStyle(
-                          color: Colors.orange.shade700,
-                          fontSize: 12.sp,
-                          fontWeight: FontWeight.w400,
-                        ),
-                      ),
-                      items: selectedProvince == null
-                          ? [
-                              DropdownMenuItem(
-                                value: null,
-                                enabled: false,
-                                child: Text(
-                                  "Please select a province first",
-                                  style: TextStyle(
-                                    fontSize: 14.sp,
-                                    fontStyle: FontStyle.italic,
-                                    color: Colors.grey.shade500,
-                                  ),
-                                ),
-                              ),
-                            ]
-                          : PakistanLocations.citiesFor(selectedProvince)
-                                .map(
-                                  (city) => DropdownMenuItem(
-                                    value: city,
-                                    child: Text(
-                                      city,
-                                      style: TextStyle(fontSize: 15.sp),
-                                    ),
-                                  ),
-                                )
-                                .toList(),
-                      onChanged: selectedProvince == null
-                          ? null
-                          : (value) {
-                              setState(() {
-                                selectedCity = value;
-                              });
-                            },
+                    AppDropdownField<String>(
+                      label: "City",
+                      hint: _selectedProvince == null
+                          ? "Select province first"
+                          : "Select your city",
+                      value: _selectedCity,
+                      enabled: _selectedProvince != null,
+                      helperText: _selectedProvince == null
+                          ? "Please select a province first"
+                          : null,
+                      items: _selectedProvince == null
+                          ? const []
+                          : PakistanLocations.citiesFor(_selectedProvince),
+                      itemLabel: (c) => c,
+                      onChanged: (value) =>
+                          setState(() => _selectedCity = value),
                     ),
                   ],
                 ),
               ),
               SizedBox(height: 10.h),
-              Container(
-                padding: EdgeInsets.all(20),
-                height: 320.h,
-                width: double.infinity,
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(14.r),
-                ),
+
+              _SectionCard(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      "Residential\nAddress",
-                      style: TextStyle(
-                        fontSize: 14.sp,
-                        fontWeight: FontWeight.w500,
-                        color: AppColors.secondaryclr,
-                      ),
-                    ),
-                    SizedBox(height: 6.h),
-                    TextFormField(
+                    AppTextField(
+                      controller: _addressController,
+                      label: "Residential Address",
+                      hint: "Enter your full address (House #, Street...)",
                       maxLines: 3,
-                      style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 15.sp,
-                        fontWeight: FontWeight.w500,
-                      ),
-                      decoration: InputDecoration(
-                        hintText:
-                            "Enter your full address (House #, Street...)",
-                        hintStyle: TextStyle(
-                          color: Colors.black54,
-                          fontSize: 15.sp,
-                          fontWeight: FontWeight.w400,
-                        ),
-                        filled: true,
-                        fillColor: AppColors.txtfieldclr.withValues(alpha: .3),
-                        contentPadding: EdgeInsets.symmetric(
-                          horizontal: 16.w,
-                          vertical: 16.h,
-                        ),
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(14.r),
-                          borderSide: BorderSide(
-                            color: Colors.grey.shade50,
-                            width: 1.w,
-                          ),
-                        ),
-                        enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(14.r),
-                          borderSide: BorderSide(
-                            color: Colors.grey.shade200,
-                            width: 1.w,
-                          ),
-                        ),
-                        focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(14.r),
-                          borderSide: BorderSide(
-                            color: Colors.transparent,
-                            width: 1.5.w,
-                          ),
-                        ),
-                      ),
+                      fillColor: AppColors.txtfieldclr.withValues(alpha: .3),
                     ),
                     SizedBox(height: 20.h),
-                    GestureDetector(
-                      onTap: () {},
-                      child: Container(
-                        height: 95.h,
-                        width: double.infinity,
-                        padding: EdgeInsets.symmetric(
-                          horizontal: 18.w,
-                          vertical: 10.h,
-                        ),
-                        decoration: BoxDecoration(
-                          color: AppColors.primaryclr.withValues(alpha: 0.05),
-                          borderRadius: BorderRadius.circular(16.r),
-                          border: Border.all(
-                            color: AppColors.primaryclr.withValues(alpha: 0.2),
-                            width: 1.w,
-                          ),
-                        ),
-                        child: Row(
-                          children: [
-                            Container(
-                              height: 50.h,
-                              width: 40.w,
-                              decoration: BoxDecoration(
-                                color: AppColors.primaryclr,
-                                borderRadius: BorderRadius.circular(30.r),
-                              ),
-                              child: Icon(
-                                Icons.location_on_outlined,
-                                color: Colors.white,
-                                size: 25.sp,
-                              ),
-                            ),
-                            SizedBox(width: 14.w),
-                            Expanded(
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Text(
-                                    "Locate on Map",
-                                    style: TextStyle(
-                                      fontSize: 15.sp,
-                                      fontWeight: FontWeight.w700,
-                                      color: AppColors.primaryclr,
-                                    ),
-                                  ),
-                                  SizedBox(height: 4.h),
-                                  Text(
-                                    "Tap to pick your location\nautomatically",
-                                    style: TextStyle(
-                                      fontSize: 12.sp,
-                                      color: Colors.black45,
-                                      fontWeight: FontWeight.w500,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            Icon(
-                              Icons.chevron_right,
-                              color: AppColors.primaryclr,
-                              size: 26.sp,
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
+                    const _LocateOnMapButton(),
                   ],
                 ),
               ),
               SizedBox(height: 10.h),
-              Container(
-                padding: EdgeInsets.all(20),
-                height: 150.h,
-                width: double.infinity,
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(14.r),
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      "Postal Code (Optional)",
-                      style: TextStyle(
-                        fontSize: 14.sp,
-                        fontWeight: FontWeight.w500,
-                        color: AppColors.secondaryclr,
-                      ),
-                    ),
-                    SizedBox(height: 6.h),
-                    TextFormField(
-                      style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 15.sp,
-                        fontWeight: FontWeight.w500,
-                      ),
-                      decoration: InputDecoration(
-                        hintText: "e.g. 24640",
-                        hintStyle: TextStyle(
-                          color: Colors.black54,
-                          fontSize: 15.sp,
-                          fontWeight: FontWeight.w400,
-                        ),
-                        filled: true,
-                        fillColor: AppColors.txtfieldclr.withValues(alpha: .2),
-                        contentPadding: EdgeInsets.symmetric(
-                          horizontal: 16.w,
-                          vertical: 16.h,
-                        ),
-                        enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(14.r),
-                          borderSide: BorderSide(
-                            color: Colors.grey.shade100,
-                            width: 1.w,
-                          ),
-                        ),
-                        focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(14.r),
-                          borderSide: BorderSide(
-                            color: Colors.transparent,
-                            width: 1.5.w,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
+
+              _SectionCard(
+                child: AppTextField(
+                  controller: _postalCodeController,
+                  label: "Postal Code (Optional)",
+                  hint: "e.g. 24640",
+                  fillColor: AppColors.txtfieldclr.withValues(alpha: .2),
                 ),
               ),
               SizedBox(height: 20.h),
+
               Image.asset(
                 AppConstants.mapPreview,
                 height: 150.h,
@@ -473,49 +157,100 @@ class _AddressDetailsScreenState extends State<AddressDetailsScreen> {
               PrimaryButton(
                 text: "Continue",
                 icon: Icons.arrow_forward,
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => EmployementIncomeScreen(),
-                    ),
-                  );
-                },
+                onPressed: _handleContinue,
               ),
               SizedBox(height: 10.h),
-              Row(
+              const AlreadyHaveAccountRow(),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+
+class _SectionCard extends StatelessWidget {
+  const _SectionCard({required this.child});
+
+  final Widget child;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.all(20),
+      width: double.infinity,
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(14.r),
+      ),
+      child: child,
+    );
+  }
+}
+
+class _LocateOnMapButton extends StatelessWidget {
+  const _LocateOnMapButton();
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: () {},
+      child: Container(
+        height: 95.h,
+        width: double.infinity,
+        padding: EdgeInsets.symmetric(horizontal: 18.w, vertical: 10.h),
+        decoration: BoxDecoration(
+          color: AppColors.primaryclr.withValues(alpha: 0.05),
+          borderRadius: BorderRadius.circular(16.r),
+          border: Border.all(
+            color: AppColors.primaryclr.withValues(alpha: 0.2),
+            width: 1.w,
+          ),
+        ),
+        child: Row(
+          children: [
+            Container(
+              height: 50.h,
+              width: 40.w,
+              decoration: BoxDecoration(
+                color: AppColors.primaryclr,
+                borderRadius: BorderRadius.circular(30.r),
+              ),
+              child: Icon(
+                Icons.location_on_outlined,
+                color: Colors.white,
+                size: 25.sp,
+              ),
+            ),
+            SizedBox(width: 14.w),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                    "Already have an account? ",
+                    "Locate on Map",
                     style: TextStyle(
-                      color: AppColors.secondaryclr,
-                      fontSize: 14.sp,
-                      fontWeight: FontWeight.w400,
+                      fontSize: 15.sp,
+                      fontWeight: FontWeight.w700,
+                      color: AppColors.primaryclr,
                     ),
                   ),
-                  GestureDetector(
-                    onTap: () {
-                      Navigator.pushReplacement(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => const LoginScreen(),
-                        ),
-                      );
-                    },
-                    child: Text(
-                      "Sign In",
-                      style: TextStyle(
-                        color: AppColors.primaryclr,
-                        fontSize: 14.sp,
-                        fontWeight: FontWeight.w600,
-                      ),
+                  SizedBox(height: 4.h),
+                  Text(
+                    "Tap to pick your location\nautomatically",
+                    style: TextStyle(
+                      fontSize: 12.sp,
+                      color: Colors.black45,
+                      fontWeight: FontWeight.w500,
                     ),
                   ),
                 ],
               ),
-            ],
-          ),
+            ),
+            Icon(Icons.chevron_right, color: AppColors.primaryclr, size: 26.sp),
+          ],
         ),
       ),
     );
