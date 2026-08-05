@@ -5,6 +5,8 @@ import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:pakpay/core/app_colors.dart';
 import 'package:pakpay/sharedwidgets/primary_button.dart';
+import 'package:pakpay/view/auth/reset_password_screen.dart';
+import 'package:pakpay/view/otp_expired_screen.dart';
 
 class OtpVerificationScreen extends StatefulWidget {
   const OtpVerificationScreen({
@@ -32,8 +34,10 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
   @override
   void initState() {
     super.initState();
-    _controllers =
-        List.generate(widget.otpLength, (_) => TextEditingController());
+    _controllers = List.generate(
+      widget.otpLength,
+      (_) => TextEditingController(),
+    );
     _focusNodes = List.generate(widget.otpLength, (_) => FocusNode());
     _secondsLeft = widget.expirySeconds;
     _startTimer();
@@ -70,9 +74,23 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
     setState(() {});
   }
 
+  void _goToExpiredScreen() {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (_) => const OtpExpiredScreen()),
+    );
+  }
+
   Future<void> _onVerify() async {
     if (!_isComplete || _isVerifying) return;
     FocusScope.of(context).unfocus();
+
+   
+    if (_secondsLeft <= 0) {
+      _goToExpiredScreen();
+      return;
+    }
+
     setState(() => _isVerifying = true);
 
     // TODO: replace with actual API call to verify OTP
@@ -81,7 +99,20 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
     if (!mounted) return;
     setState(() => _isVerifying = false);
 
-    // TODO: navigate to reset password / next screen on success
+    // Check again: the timer could have hit zero while the "API call"
+    // above was in flight, so this guards that race too.
+    if (_secondsLeft <= 0) {
+      _goToExpiredScreen();
+      return;
+    }
+
+    // TODO: if your API call returns an "invalid code" error (as
+    // opposed to expiry), show that error here instead of navigating.
+
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (_) => const ResetPasswordScreen()),
+    );
   }
 
   void _onResend() {
@@ -90,7 +121,6 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
       c.clear();
     }
     _focusNodes.first.requestFocus();
-    // TODO: replace with actual API call to resend OTP
     _startTimer();
   }
 
@@ -118,7 +148,11 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
         elevation: 0,
         centerTitle: true,
         leading: IconButton(
-          icon: Icon(Icons.arrow_back, color: AppColors.primaryclr, size: 22.sp),
+          icon: Icon(
+            Icons.arrow_back,
+            color: AppColors.primaryclr,
+            size: 22.sp,
+          ),
           onPressed: () => Navigator.pop(context),
         ),
         title: Text(
@@ -135,138 +169,141 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
         height: double.infinity,
         decoration: const BoxDecoration(gradient: AppColors.bgclr),
         child: SafeArea(
-        child: SingleChildScrollView(
-          padding: EdgeInsets.symmetric(horizontal: 24.w),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              SizedBox(height: 40.h),
+          child: SingleChildScrollView(
+            padding: EdgeInsets.symmetric(horizontal: 24.w),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                SizedBox(height: 40.h),
 
-              // Icon avatar
-              Center(
-                child: Container(
-                  width: 88.w,
-                  height: 88.w,
-                  decoration: BoxDecoration(
-                    color: AppColors.primaryclr.withValues(alpha: 0.08),
-                    shape: BoxShape.circle,
-                  ),
-                  child: Icon(
-                    Icons.phonelink_lock_rounded,
-                    color: AppColors.primaryclr,
-                    size: 36.sp,
-                  ),
-                ),
-              ),
-              SizedBox(height: 28.h),
-
-              Text(
-                'Verify OTP',
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  fontSize: 24.sp,
-                  fontWeight: FontWeight.w700,
-                  color: Colors.black87,
-                ),
-              ),
-              SizedBox(height: 12.h),
-              Text(
-                'Enter the 6-digit code sent to your mobile\nnumber.',
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  fontSize: 14.sp,
-                  fontWeight: FontWeight.w400,
-                  color: Colors.black54,
-                  height: 1.4,
-                ),
-              ),
-              SizedBox(height: 32.h),
-
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: List.generate(widget.otpLength, (index) {
-                  final bool isFocused = _focusNodes[index].hasFocus;
-                  return SizedBox(
-                    width: 48.w,
-                    height: 56.w,
-                    child: TextField(
-                      controller: _controllers[index],
-                      focusNode: _focusNodes[index],
-                      textAlign: TextAlign.center,
-                      keyboardType: TextInputType.number,
-                      maxLength: 1,
-                      inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-                      style: TextStyle(
-                        fontSize: 20.sp,
-                        fontWeight: FontWeight.w600,
-                        color: Colors.black87,
-                      ),
-                      decoration: InputDecoration(
-                        counterText: '',
-                        filled: true,
-                        fillColor: AppColors.txtfieldclr,
-                        contentPadding: EdgeInsets.zero,
-                        border: OutlineInputBorder(
-                          borderSide: BorderSide.none,
-                          borderRadius: BorderRadius.circular(14.r),
-                        ),
-                        enabledBorder: OutlineInputBorder(
-                          borderSide: BorderSide.none,
-                          borderRadius: BorderRadius.circular(14.r),
-                        ),
-                        focusedBorder: OutlineInputBorder(
-                          borderSide:
-                              BorderSide(color: AppColors.primaryclr, width: 1.5.w),
-                          borderRadius: BorderRadius.circular(14.r),
-                        ),
-                      ),
-                      onChanged: (value) => _onChanged(index, value),
+                // Icon avatar
+                Center(
+                  child: Container(
+                    width: 88.w,
+                    height: 88.w,
+                    decoration: BoxDecoration(
+                      color: AppColors.primaryclr.withValues(alpha: 0.08),
+                      shape: BoxShape.circle,
                     ),
-                  );
-                }),
-              ),
-              SizedBox(height: 20.h),
-
-              Center(
-                child: Column(
-                  children: [
-                    Text(
-                      'Code expires in $_formattedTime',
-                      style: TextStyle(
-                        fontSize: 13.sp,
-                        fontWeight: FontWeight.w400,
-                        color: Colors.black54,
-                      ),
+                    child: Icon(
+                      Icons.phonelink_lock_rounded,
+                      color: AppColors.primaryclr,
+                      size: 36.sp,
                     ),
-                    SizedBox(height: 6.h),
-                    GestureDetector(
-                      onTap: canResend ? _onResend : null,
-                      child: Text(
-                        'Resend OTP',
+                  ),
+                ),
+                SizedBox(height: 28.h),
+
+                Text(
+                  'Verify OTP',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontSize: 24.sp,
+                    fontWeight: FontWeight.w700,
+                    color: Colors.black87,
+                  ),
+                ),
+                SizedBox(height: 12.h),
+                Text(
+                  'Enter the 6-digit code sent to your mobile\nnumber.',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontSize: 14.sp,
+                    fontWeight: FontWeight.w400,
+                    color: Colors.black54,
+                    height: 1.4,
+                  ),
+                ),
+                SizedBox(height: 32.h),
+
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: List.generate(widget.otpLength, (index) {
+                    final bool isFocused = _focusNodes[index].hasFocus;
+                    return SizedBox(
+                      width: 48.w,
+                      height: 56.w,
+                      child: TextField(
+                        controller: _controllers[index],
+                        focusNode: _focusNodes[index],
+                        textAlign: TextAlign.center,
+                        keyboardType: TextInputType.number,
+                        maxLength: 1,
+                        inputFormatters: [
+                          FilteringTextInputFormatter.digitsOnly,
+                        ],
                         style: TextStyle(
-                          fontSize: 14.sp,
+                          fontSize: 20.sp,
                           fontWeight: FontWeight.w600,
-                          color: canResend
-                              ? AppColors.primaryclr
-                              : Colors.black26,
+                          color: Colors.black87,
+                        ),
+                        decoration: InputDecoration(
+                          counterText: '',
+                          filled: true,
+                          fillColor: AppColors.txtfieldclr,
+                          contentPadding: EdgeInsets.zero,
+                          border: OutlineInputBorder(
+                            borderSide: BorderSide.none,
+                            borderRadius: BorderRadius.circular(14.r),
+                          ),
+                          enabledBorder: OutlineInputBorder(
+                            borderSide: BorderSide.none,
+                            borderRadius: BorderRadius.circular(14.r),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(
+                              color: AppColors.primaryclr,
+                              width: 1.5.w,
+                            ),
+                            borderRadius: BorderRadius.circular(14.r),
+                          ),
+                        ),
+                        onChanged: (value) => _onChanged(index, value),
+                      ),
+                    );
+                  }),
+                ),
+                SizedBox(height: 20.h),
+
+                Center(
+                  child: Column(
+                    children: [
+                      Text(
+                        'Code expires in $_formattedTime',
+                        style: TextStyle(
+                          fontSize: 13.sp,
+                          fontWeight: FontWeight.w400,
+                          color: Colors.black54,
                         ),
                       ),
-                    ),
-                  ],
+                      SizedBox(height: 6.h),
+                      GestureDetector(
+                        onTap: canResend ? _onResend : null,
+                        child: Text(
+                          'Resend OTP',
+                          style: TextStyle(
+                            fontSize: 14.sp,
+                            fontWeight: FontWeight.w600,
+                            color: canResend
+                                ? AppColors.primaryclr
+                                : Colors.black26,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
-              ),
-              SizedBox(height: 32.h),
+                SizedBox(height: 32.h),
 
-              PrimaryButton(
-                text: _isVerifying ? 'Verifying...' : 'Verify',
-                icon: _isVerifying ? null : Icons.arrow_forward,
-                onPressed:
-                    (_isComplete && !_isVerifying) ? _onVerify : null,
-              ),
-              SizedBox(height: 24.h),
-            ],
+                PrimaryButton(
+                  text: _isVerifying ? 'Verifying...' : 'Verify',
+                  icon: _isVerifying ? null : Icons.arrow_forward,
+                  onPressed: (_isComplete && !_isVerifying) ? _onVerify : null,
+                ),
+                SizedBox(height: 24.h),
+              ],
+            ),
           ),
-        ),
         ),
       ),
     );
