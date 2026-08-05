@@ -7,7 +7,7 @@ import 'package:pakpay/sharedwidgets/illustration_circle.dart';
 import 'package:pakpay/sharedwidgets/input_otp.dart';
 import 'package:pakpay/sharedwidgets/pill_status_badge.dart';
 import 'package:pakpay/sharedwidgets/primary_button.dart';
-import 'package:pakpay/view/auth/Models/user_model.dart';
+import 'package:pakpay/Models/user_model.dart';
 import 'package:pakpay/view/auth/createaccount/appbar_steps_widget.dart';
 import 'package:pakpay/view/auth/createaccount/email_verification.dart';
 

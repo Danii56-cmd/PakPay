@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:pakpay/core/app_colors.dart';
 import 'package:pakpay/sharedwidgets/primary_button.dart';
-import 'package:pakpay/view/auth/Models/user_model.dart';
+import 'package:pakpay/Models/user_model.dart';
 
 class IdentityVerificationScreen extends StatelessWidget {
   const IdentityVerificationScreen({super.key, required this.user});

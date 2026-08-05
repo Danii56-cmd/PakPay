@@ -3,7 +3,7 @@ import 'package:pakpay/core/app_colors.dart';
 import 'package:pakpay/sharedwidgets/app_state.dart';
 import 'package:pakpay/sharedwidgets/dashboard_widgets.dart';
 import 'package:pakpay/view/QR_code_screen.dart';
-import 'package:pakpay/view/auth/Models/Ttransaction_model.dart';
+import 'package:pakpay/Models/Ttransaction_model.dart';
 import 'package:pakpay/view/contact_picker_screen.dart';
 import 'package:pakpay/view/history_screen.dart';
 import 'package:pakpay/view/profile_screen.dart';

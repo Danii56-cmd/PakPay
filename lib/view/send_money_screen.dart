@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:pakpay/core/app_colors.dart';
 import 'package:pakpay/sharedwidgets/app_state.dart';
-import 'package:pakpay/view/auth/Models/Ttransaction_model.dart';
+import 'package:pakpay/Models/Ttransaction_model.dart';
 import 'package:pakpay/view/send_money_succussful_screen.dart';
 
 class SendMoneyScreen extends StatefulWidget {

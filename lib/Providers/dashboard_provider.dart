@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:pakpay/sharedwidgets/app_state.dart';
-import 'package:pakpay/view/auth/Models/Ttransaction_model.dart';
-import 'package:pakpay/view/auth/Models/user_model.dart';
+import 'package:pakpay/Models/Ttransaction_model.dart';
+import 'package:pakpay/Models/user_model.dart';
 
 /// Kept for backward compatibility with any code that still consumes
 /// dashboard state via Provider/ChangeNotifierProvider. All real state

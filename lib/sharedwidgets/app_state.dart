@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:pakpay/view/auth/Models/Ttransaction_model.dart';
-import 'package:pakpay/view/auth/Models/user_model.dart';
+import 'package:pakpay/Models/Ttransaction_model.dart';
+import 'package:pakpay/Models/user_model.dart';
 
 class Contact {
   final String name;
