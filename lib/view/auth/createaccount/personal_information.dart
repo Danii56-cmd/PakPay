@@ -6,7 +6,7 @@ import 'package:pakpay/sharedwidgets/app_labeled_fieldbox.dart';
 import 'package:pakpay/sharedwidgets/info_note_card.dart';
 import 'package:pakpay/sharedwidgets/primary_button.dart';
 import 'package:pakpay/sharedwidgets/screen_header.dart';
-import 'package:pakpay/view/auth/Models/user_model.dart';
+import 'package:pakpay/Models/user_model.dart';
 import 'package:pakpay/view/auth/createaccount/address_details.dart';
 import 'package:pakpay/view/auth/createaccount/appbar_steps_widget.dart';
 

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
 import 'package:pakpay/sharedwidgets/app_state.dart';
-import 'package:pakpay/view/auth/Models/Ttransaction_model.dart';
+import 'package:pakpay/Models/Ttransaction_model.dart';
 import 'package:pakpay/view/send_money_screen.dart';
 
 /// Real camera-based scanner (mobile_scanner). Expects QR payloads produced

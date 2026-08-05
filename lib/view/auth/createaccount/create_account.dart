@@ -7,7 +7,7 @@ import 'package:pakpay/sharedwidgets/already_have_account_row.dart';
 import 'package:pakpay/sharedwidgets/primary_button.dart';
 import 'package:pakpay/sharedwidgets/reusbale_textfiel.dart';
 import 'package:pakpay/sharedwidgets/screen_header.dart';
-import 'package:pakpay/view/auth/Models/user_model.dart';
+import 'package:pakpay/Models/user_model.dart';
 import 'package:pakpay/view/auth/createaccount/appbar_steps_widget.dart';
 import 'package:pakpay/view/auth/createaccount/personal_information.dart';
 

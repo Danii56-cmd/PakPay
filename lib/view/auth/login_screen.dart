@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:pakpay/core/app_colors.dart';
+import 'package:pakpay/sharedwidgets/forgot_password_screen.dart';
 import 'package:pakpay/sharedwidgets/primary_button.dart';
 import 'package:pakpay/view/dashboard_screens.dart';
 import 'package:pakpay/view/auth/createaccount/create_account.dart';
@@ -204,7 +205,14 @@ class _LoginScreenState extends State<LoginScreen> {
                         ],
                       ),
                       GestureDetector(
-                        onTap: () {},
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => ForgotPasswordScreen(),
+                            ),
+                          );
+                        },
                         child: Text(
                           "Forgot Password?",
                           style: TextStyle(
