@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pakpay/core/app_colors.dart';
-import 'package:pakpay/view/main_screen.dart';
+import 'package:pakpay/view/mainscreen/main_screen.dart';
 
 class SendMoneySuccessScreen extends StatelessWidget {
   final String recipientName;

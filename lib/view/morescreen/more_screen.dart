@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:pakpay/core/app_colors.dart';
 import 'package:pakpay/sharedwidgets/more_screens_widgets.dart';
-import 'package:pakpay/view/QR_code_screen.dart';
-import 'package:pakpay/view/contact_picker_screen.dart';
-import 'package:pakpay/view/history_screen.dart';
-import 'package:pakpay/view/my_qrcode.dart';
+import 'package:pakpay/view/QRscreens/QR_code_screen.dart';
+import 'package:pakpay/view/QRscreens/my_qrcode.dart';
+import 'package:pakpay/view/contactpickerscreen/contact_picker_screen.dart';
+import 'package:pakpay/view/historyscreen/history_screen.dart';
 
 class AllActionsScreen extends StatefulWidget {
   const AllActionsScreen({super.key});

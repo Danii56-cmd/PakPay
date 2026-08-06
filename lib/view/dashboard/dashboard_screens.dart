@@ -1,14 +1,15 @@
 // ignore_for_file: unused_element
 
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:pakpay/core/app_colors.dart';
 import 'package:pakpay/sharedwidgets/app_state.dart';
 import 'package:pakpay/sharedwidgets/dashboard_widgets.dart';
-import 'package:pakpay/view/QR_code_screen.dart';
 import 'package:pakpay/Models/Ttransaction_model.dart';
-import 'package:pakpay/view/contact_picker_screen.dart';
-import 'package:pakpay/view/history_screen.dart';
-import 'package:pakpay/view/profile_screen.dart';
+import 'package:pakpay/view/QRscreens/QR_code_screen.dart';
+import 'package:pakpay/view/contactpickerscreen/contact_picker_screen.dart';
+import 'package:pakpay/view/historyscreen/history_screen.dart';
+import 'package:pakpay/view/profilescreen/profile_screen.dart';
 
 class DashboardScreen extends StatefulWidget {
   const DashboardScreen({super.key});
@@ -29,20 +30,20 @@ class _DashboardScreenState extends State<DashboardScreen> {
         child: Container(
           decoration: const BoxDecoration(gradient: AppColors.bgclr),
           child: ListView(
-            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+            padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 12.h),
             children: [
               buildAppBar(),
-              const SizedBox(height: 20),
+              SizedBox(height: 20.h),
               buildWelcome(),
-              const SizedBox(height: 16),
+              SizedBox(height: 16.h),
               _buildBalanceCard(),
-              const SizedBox(height: 24),
+              SizedBox(height: 30.h),
               buildQuickActions(context),
-              const SizedBox(height: 20),
+              SizedBox(height: 20.h),
               buildSaveSmarterBanner(),
-              const SizedBox(height: 24),
+              SizedBox(height: 24.h),
               buildRecentActivityHeader(onViewAll: () => _openHistory(context)),
-              const SizedBox(height: 12),
+              SizedBox(height: 12.h),
               ValueListenableBuilder<List<TransactionModel>>(
                 valueListenable: AppState.instance.transactions,
                 builder: (context, txs, _) {
@@ -63,7 +64,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                   );
                 },
               ),
-              const SizedBox(height: 90),
+              SizedBox(height: 90.h),
             ],
           ),
         ),
@@ -89,14 +90,14 @@ class _DashboardScreenState extends State<DashboardScreen> {
   Widget _buildBalanceCard() {
     return Container(
       width: double.infinity,
-      padding: const EdgeInsets.all(20),
+      padding: EdgeInsets.all(20.h),
       decoration: BoxDecoration(
         color: AppColors.primaryclr,
-        borderRadius: BorderRadius.circular(24),
+        borderRadius: BorderRadius.circular(24.r),
         boxShadow: [
           BoxShadow(
             color: AppColors.primaryclr.withValues(alpha: 0.35),
-            blurRadius: 20,
+            blurRadius: 20.r,
             offset: const Offset(0, 10),
           ),
         ],
@@ -110,7 +111,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                 'Total Balance',
                 style: TextStyle(color: Colors.white70, fontSize: 14),
               ),
-              const SizedBox(width: 6),
+              SizedBox(width: 6.w),
               GestureDetector(
                 onTap: () => setState(() => _balanceHidden = !_balanceHidden),
                 child: Icon(
@@ -121,7 +122,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
               ),
             ],
           ),
-          const SizedBox(height: 18),
+          SizedBox(height: 18.h),
           Row(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
@@ -131,10 +132,10 @@ class _DashboardScreenState extends State<DashboardScreen> {
                         children: List.generate(
                           8,
                           (i) => Padding(
-                            padding: const EdgeInsets.only(right: 6),
+                            padding: EdgeInsets.only(right: 6.w),
                             child: Container(
-                              width: 9,
-                              height: 9,
+                              width: 9.w,
+                              height: 9.h,
                               decoration: const BoxDecoration(
                                 color: Colors.white,
                                 shape: BoxShape.circle,
@@ -156,11 +157,11 @@ class _DashboardScreenState extends State<DashboardScreen> {
                       ),
               ),
               InkWell(
-                borderRadius: BorderRadius.circular(999),
+                borderRadius: BorderRadius.circular(999.r),
                 onTap: () => _openMyQr(context),
                 child: Container(
-                  width: 44,
-                  height: 44,
+                  width: 44.w,
+                  height: 44.h,
                   decoration: BoxDecoration(
                     color: Colors.white.withValues(alpha: 0.15),
                     shape: BoxShape.circle,
@@ -174,18 +175,18 @@ class _DashboardScreenState extends State<DashboardScreen> {
               ),
             ],
           ),
-          const SizedBox(height: 18),
+          SizedBox(height: 18.h),
           Container(
-            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+            padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 6.h),
             decoration: BoxDecoration(
               color: Colors.white.withValues(alpha: 0.18),
-              borderRadius: BorderRadius.circular(20),
+              borderRadius: BorderRadius.circular(20.r),
             ),
             child: Row(
               mainAxisSize: MainAxisSize.min,
               children: [
                 const Icon(Icons.trending_up, color: Colors.white, size: 14),
-                const SizedBox(width: 4),
+                SizedBox(width: 4.w),
                 const Text(
                   '+2.4%',
                   style: TextStyle(
@@ -194,7 +195,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                     fontSize: 12,
                   ),
                 ),
-                const SizedBox(width: 6),
+                SizedBox(width: 6.w),
                 Text(
                   'vs last month',
                   style: TextStyle(
@@ -245,7 +246,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
     }
 
     return SizedBox(
-      height: 78,
+      height: 78.h,
       child: Stack(
         clipBehavior: Clip.none,
         alignment: Alignment.topCenter,
@@ -256,17 +257,17 @@ class _DashboardScreenState extends State<DashboardScreen> {
               boxShadow: [
                 BoxShadow(
                   color: Colors.black.withValues(alpha: 0.06),
-                  blurRadius: 12,
+                  blurRadius: 12.r,
                   offset: const Offset(0, -2),
                 ),
               ],
             ),
-            padding: const EdgeInsets.symmetric(horizontal: 8),
+            padding: EdgeInsets.symmetric(horizontal: 8.w),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: List.generate(items.length, (index) {
                 if (items[index] == null) {
-                  return const SizedBox(width: 60);
+                  return SizedBox(width: 60.w);
                 }
                 final item = items[index] as Map<String, dynamic>;
                 final selected = _navIndex == index;
@@ -274,7 +275,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                 return InkWell(
                   onTap: () => handleTap(index),
                   child: Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 10),
+                    padding: EdgeInsets.symmetric(vertical: 10.h),
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
                       children: [
@@ -302,12 +303,12 @@ class _DashboardScreenState extends State<DashboardScreen> {
                 );
               },
               child: Container(
-                width: 58,
-                height: 58,
+                width: 58.w,
+                height: 58.h,
                 decoration: BoxDecoration(
                   color: const Color(0xFF1C1C1C),
                   shape: BoxShape.circle,
-                  border: Border.all(color: Colors.white, width: 4),
+                  border: Border.all(color: Colors.white, width: 4.w),
                   boxShadow: [
                     BoxShadow(
                       color: Colors.black.withValues(alpha: 0.2),
@@ -324,8 +325,8 @@ class _DashboardScreenState extends State<DashboardScreen> {
               ),
             ),
           ),
-          const Positioned(
-            top: 46,
+          Positioned(
+            top: 46.h,
             child: Text(
               'QR',
               style: TextStyle(fontSize: 11, color: Colors.black87),

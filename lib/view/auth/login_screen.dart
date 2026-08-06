@@ -4,7 +4,7 @@ import 'package:pakpay/core/app_colors.dart';
 import 'package:pakpay/sharedwidgets/forgot_password_screen.dart';
 import 'package:pakpay/sharedwidgets/primary_button.dart';
 import 'package:pakpay/view/auth/createaccount/create_account.dart';
-import 'package:pakpay/view/main_screen.dart';
+import 'package:pakpay/view/mainscreen/main_screen.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});

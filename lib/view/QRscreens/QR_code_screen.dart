@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
 import 'package:pakpay/sharedwidgets/app_state.dart';
 import 'package:pakpay/Models/Ttransaction_model.dart';
-import 'package:pakpay/view/send_money_screen.dart';
+import 'package:pakpay/view/sendmoney/send_money_screen.dart';
 
 /// Real camera-based scanner (mobile_scanner). Expects QR payloads produced
 /// by MyQrScreen, e.g. pakpay://pay?name=...&account=...&iban=...
@@ -53,8 +53,12 @@ class _ScanQrScreenState extends State<ScanQrScreen> {
       context,
       MaterialPageRoute(
         builder: (_) => SendMoneyScreen(
-          recipientName: (name != null && name.isNotEmpty) ? name : 'Scanned Contact',
-          recipientDetail: (account != null && account.isNotEmpty) ? account : raw,
+          recipientName: (name != null && name.isNotEmpty)
+              ? name
+              : 'Scanned Contact',
+          recipientDetail: (account != null && account.isNotEmpty)
+              ? account
+              : raw,
           method: PaymentMethod.qrCode,
         ),
       ),
@@ -72,7 +76,10 @@ class _ScanQrScreenState extends State<ScanQrScreen> {
         iconTheme: const IconThemeData(color: Colors.white),
         actions: [
           IconButton(
-            icon: Icon(_torchOn ? Icons.flash_on : Icons.flash_off, color: Colors.white),
+            icon: Icon(
+              _torchOn ? Icons.flash_on : Icons.flash_off,
+              color: Colors.white,
+            ),
             onPressed: () {
               _controller.toggleTorch();
               setState(() => _torchOn = !_torchOn);

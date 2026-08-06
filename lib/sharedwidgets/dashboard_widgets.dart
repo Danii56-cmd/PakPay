@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:pakpay/core/app_colors.dart';
 import 'package:pakpay/sharedwidgets/app_state.dart';
-import 'package:pakpay/view/more_screen.dart';
-import 'package:pakpay/view/send_money_screen.dart';
+import 'package:pakpay/view/morescreen/more_screen.dart';
+import 'package:pakpay/view/sendmoney/send_money_screen.dart';
 
 Widget buildAppBar() {
   final user = AppState.instance.user;

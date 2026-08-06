@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:pakpay/sharedwidgets/app_state.dart';
 import 'package:pakpay/Models/Ttransaction_model.dart';
-import 'package:pakpay/view/send_money_screen.dart';
+import 'package:pakpay/view/sendmoney/send_money_screen.dart';
 
 class ContactPickerScreen extends StatefulWidget {
   const ContactPickerScreen({super.key});
@@ -37,7 +37,10 @@ class _ContactPickerScreenState extends State<ContactPickerScreen> {
                 prefixIcon: const Icon(Icons.search),
                 filled: true,
                 fillColor: Colors.white,
-                border: OutlineInputBorder(borderRadius: BorderRadius.circular(14), borderSide: BorderSide.none),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(14),
+                  borderSide: BorderSide.none,
+                ),
               ),
               onChanged: (v) => setState(() => _query = v),
             ),
@@ -51,7 +54,8 @@ class _ContactPickerScreenState extends State<ContactPickerScreen> {
                   child: OutlinedButton.icon(
                     icon: const Icon(Icons.account_balance_outlined),
                     label: const Text('Account Number'),
-                    onPressed: () => _openManualEntry(context, PaymentMethod.accountNumber),
+                    onPressed: () =>
+                        _openManualEntry(context, PaymentMethod.accountNumber),
                   ),
                 ),
                 const SizedBox(width: 10),
@@ -59,7 +63,8 @@ class _ContactPickerScreenState extends State<ContactPickerScreen> {
                   child: OutlinedButton.icon(
                     icon: const Icon(Icons.pin_outlined),
                     label: const Text('IBAN'),
-                    onPressed: () => _openManualEntry(context, PaymentMethod.iban),
+                    onPressed: () =>
+                        _openManualEntry(context, PaymentMethod.iban),
                   ),
                 ),
               ],
@@ -87,20 +92,37 @@ class _ContactPickerScreenState extends State<ContactPickerScreen> {
                   ),
                   child: Container(
                     padding: const EdgeInsets.all(12),
-                    decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(16)),
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(16),
+                    ),
                     child: Row(
                       children: [
                         CircleAvatar(
                           backgroundColor: c.avatarColor,
-                          child: Text(c.initials, style: const TextStyle(color: Colors.white)),
+                          child: Text(
+                            c.initials,
+                            style: const TextStyle(color: Colors.white),
+                          ),
                         ),
                         const SizedBox(width: 12),
                         Expanded(
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text(c.name, style: const TextStyle(fontWeight: FontWeight.w600)),
-                              Text(c.accountNumber, style: const TextStyle(fontSize: 12, color: Colors.black54)),
+                              Text(
+                                c.name,
+                                style: const TextStyle(
+                                  fontWeight: FontWeight.w600,
+                                ),
+                              ),
+                              Text(
+                                c.accountNumber,
+                                style: const TextStyle(
+                                  fontSize: 12,
+                                  color: Colors.black54,
+                                ),
+                              ),
                             ],
                           ),
                         ),
