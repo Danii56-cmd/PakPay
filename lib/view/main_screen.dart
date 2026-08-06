@@ -4,7 +4,6 @@ import 'package:pakpay/view/QR_code_screen.dart';
 import 'package:pakpay/view/contact_picker_screen.dart';
 import 'package:pakpay/view/dashboard_screens.dart';
 import 'package:pakpay/view/history_screen.dart';
-import 'package:pakpay/view/payments_screen.dart';
 import 'package:pakpay/view/profile_screen.dart';
 
 class MainScreen extends StatefulWidget {

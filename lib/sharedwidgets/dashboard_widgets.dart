@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:pakpay/core/app_colors.dart';
 import 'package:pakpay/sharedwidgets/app_state.dart';
-import 'package:pakpay/view/QR_code_screen.dart';
-import 'package:pakpay/view/contact_picker_screen.dart';
 import 'package:pakpay/view/more_screen.dart';
-import 'package:pakpay/view/my_qrcode.dart';
 import 'package:pakpay/view/send_money_screen.dart';
 
 Widget buildAppBar() {
