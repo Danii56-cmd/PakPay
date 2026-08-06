@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:pakpay/core/app_colors.dart';
 import 'package:pakpay/sharedwidgets/app_state.dart';
-import 'package:pakpay/view/QR_code_screen.dart';
-import 'package:pakpay/view/contact_picker_screen.dart';
 import 'package:pakpay/view/more_screen.dart';
-import 'package:pakpay/view/my_qrcode.dart';
 import 'package:pakpay/view/send_money_screen.dart';
 
 Widget buildAppBar() {
@@ -115,7 +113,7 @@ Widget buildQuickActions(BuildContext context) {
               width: 54,
               height: 54,
               decoration: BoxDecoration(
-                color: Colors.white,
+                color: AppColors.txtfieldclr,
                 borderRadius: BorderRadius.circular(18),
                 boxShadow: [
                   BoxShadow(
@@ -137,21 +135,47 @@ Widget buildQuickActions(BuildContext context) {
 
 Widget buildSaveSmarterBanner() {
   return Container(
-    padding: const EdgeInsets.all(16),
+    padding: EdgeInsets.all(20.h),
     decoration: BoxDecoration(
-      color: const Color(0xFFFFF3E0),
+      color: AppColors.txtfieldclr,
       borderRadius: BorderRadius.circular(20),
     ),
     child: Row(
-      children: const [
-        Icon(Icons.savings_outlined, color: Color(0xFFE17055), size: 30),
-        SizedBox(width: 12),
+      children: [
+        SizedBox(width: 12.w),
         Expanded(
-          child: Text(
-            'Save smarter — round up your payments and grow your savings automatically.',
-            style: TextStyle(fontSize: 13),
+          child: RichText(
+            text: TextSpan(
+              text: 'Save Smarter\n',
+              style: TextStyle(
+                fontSize: 18.sp,
+                fontWeight: FontWeight.bold,
+                color: AppColors.secondaryclr,
+              ),
+
+              children: [
+                TextSpan(
+                  text: 'Automate your savings with\n',
+                  style: TextStyle(
+                    fontSize: 14.sp,
+                    fontWeight: FontWeight.w400,
+                    color: AppColors.secondaryclr,
+                  ),
+                ),
+                TextSpan(
+                  text: 'Round-Up vaults.',
+                  style: TextStyle(
+                    fontSize: 14.sp,
+                    fontWeight: FontWeight.w400,
+                    color: AppColors.secondaryclr,
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
+        Icon(Icons.savings_outlined, color: AppColors.primaryclr, size: 35),
+        SizedBox(width: 10.w),
       ],
     ),
   );
@@ -165,7 +189,13 @@ Widget buildRecentActivityHeader({required VoidCallback onViewAll}) {
         'Recent Activity',
         style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
       ),
-      TextButton(onPressed: onViewAll, child: const Text('View All')),
+      TextButton(
+        onPressed: onViewAll,
+        child: const Text(
+          'View All',
+          style: TextStyle(color: AppColors.primaryclr),
+        ),
+      ),
     ],
   );
 }
@@ -192,15 +222,17 @@ Widget buildTransactionTile({
           width: 42,
           height: 42,
           decoration: BoxDecoration(
-            color: (isCredit ? Colors.green : Colors.redAccent).withValues(
-              alpha: 0.1,
-            ),
+            color:
+                (isCredit
+                        ? Colors.blueAccent
+                        : Color.fromARGB(255, 186, 26, 26))
+                    .withValues(alpha: 0.1),
             shape: BoxShape.circle,
           ),
           child: Icon(
             icon,
             size: 20,
-            color: isCredit ? Colors.green : Colors.redAccent,
+            color: isCredit ? Colors.green : Color.fromARGB(255, 186, 26, 26),
           ),
         ),
         const SizedBox(width: 12),

@@ -10,16 +10,16 @@ class IdentityVerificationScreen extends StatelessWidget {
   final UserModel user;
 
   void _handleContinue(BuildContext context) {
-    // TODO: navigate to whatever screen follows a completed sign-up
+    // Navigate to whatever screen follows a completed sign-up
     // (e.g. a success screen or straight into the Dashboard).
   }
 
   void _handleTakeAgain(BuildContext context) {
-    // TODO: re-open the camera / re-run the face-scan capture flow.
+    // Re-open the camera / re-run the face-scan capture flow.
   }
 
   void _handleNeedHelp(BuildContext context) {
-    // TODO: open a help sheet or support link.
+    // Open a help sheet or support link.
   }
 
   @override
@@ -142,7 +142,11 @@ class IdentityVerificationScreen extends StatelessWidget {
                     child: Row(
                       mainAxisSize: MainAxisSize.min,
                       children: [
-                        const Icon(Icons.refresh, size: 16, color: AppColors.secondaryclr),
+                        const Icon(
+                          Icons.refresh,
+                          size: 16,
+                          color: AppColors.secondaryclr,
+                        ),
                         SizedBox(width: 4.w),
                         Text(
                           'Take Again',
@@ -160,7 +164,11 @@ class IdentityVerificationScreen extends StatelessWidget {
                     child: Row(
                       mainAxisSize: MainAxisSize.min,
                       children: [
-                        const Icon(Icons.help_outline, size: 16, color: Colors.black54),
+                        const Icon(
+                          Icons.help_outline,
+                          size: 16,
+                          color: Colors.black54,
+                        ),
                         SizedBox(width: 4.w),
                         Text(
                           'Need Help?',

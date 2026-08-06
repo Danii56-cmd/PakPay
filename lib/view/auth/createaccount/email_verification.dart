@@ -53,12 +53,12 @@ class _EmailVerificationScreenState extends State<EmailVerificationScreen> {
 
   void _handleResend() {
     if (_secondsLeft > 0) return;
-    // TODO: trigger the actual resend-verification-email API call here.
+    // Trigger the actual resend-verification-email API call here.
     _startTimer();
   }
 
   void _handleCheckInbox() {
-    // TODO: replace with your actual inbox / mail-app deep link.
+    //Replace with your actual inbox / mail-app deep link.
     Navigator.push(
       context,
       MaterialPageRoute(

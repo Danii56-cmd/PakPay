@@ -109,7 +109,7 @@ Widget buildMerchantBanner() {
       borderRadius: BorderRadius.circular(20),
       boxShadow: [
         BoxShadow(
-          color: AppColors.primaryclr.withOpacity(0.3),
+          color: AppColors.primaryclr.withValues(alpha: 0.3),
           blurRadius: 16,
           offset: const Offset(0, 8),
         ),
@@ -121,7 +121,7 @@ Widget buildMerchantBanner() {
           width: 46,
           height: 46,
           decoration: BoxDecoration(
-            color: Colors.white.withOpacity(0.18),
+            color: Colors.white.withValues(alpha: 0.18),
             shape: BoxShape.circle,
           ),
           child: const Icon(
@@ -168,7 +168,7 @@ Widget buildSectionLabel(String text) {
       fontSize: 12,
       fontWeight: FontWeight.w600,
       letterSpacing: 0.5,
-      color: AppColors.secondaryclr.withOpacity(0.7),
+      color: AppColors.secondaryclr.withValues(alpha: 0.7),
     ),
   );
 }
@@ -181,7 +181,7 @@ Widget buildGroupCard(List<Widget> rows) {
       borderRadius: BorderRadius.circular(18),
       boxShadow: [
         BoxShadow(
-          color: Colors.black.withOpacity(0.04),
+          color: Colors.black.withValues(alpha: 0.04),
           blurRadius: 10,
           offset: const Offset(0, 4),
         ),
@@ -237,42 +237,43 @@ Widget buildRow({
     ],
   );
 }
+
 // ---------- Log out button ----------
-  Widget buildLogoutButton() {
-    return Container(
-      width: double.infinity,
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(18),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(0.04),
-            blurRadius: 10,
-            offset: const Offset(0, 4),
-          ),
-        ],
-      ),
-      child: InkWell(
-        onTap: () {},
-        borderRadius: BorderRadius.circular(18),
-        child: const Padding(
-          padding: EdgeInsets.symmetric(vertical: 16),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Icon(Icons.logout, color: Colors.red, size: 18),
-              SizedBox(width: 8),
-              Text(
-                'Log Out',
-                style: TextStyle(
-                  color: Colors.red,
-                  fontWeight: FontWeight.w600,
-                  fontSize: 15,
-                ),
+Widget buildLogoutButton() {
+  return Container(
+    width: double.infinity,
+    decoration: BoxDecoration(
+      color: Colors.white,
+      borderRadius: BorderRadius.circular(18),
+      boxShadow: [
+        BoxShadow(
+          color: Colors.black.withValues(alpha: 0.04),
+          blurRadius: 10,
+          offset: const Offset(0, 4),
+        ),
+      ],
+    ),
+    child: InkWell(
+      onTap: () {},
+      borderRadius: BorderRadius.circular(18),
+      child: const Padding(
+        padding: EdgeInsets.symmetric(vertical: 16),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(Icons.logout, color: Colors.red, size: 18),
+            SizedBox(width: 8),
+            Text(
+              'Log Out',
+              style: TextStyle(
+                color: Colors.red,
+                fontWeight: FontWeight.w600,
+                fontSize: 15,
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
-    );
-  }
+    ),
+  );
+}

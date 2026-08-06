@@ -55,8 +55,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 isLast: true,
                 trailing: Switch(
                   value: _biometricEnabled,
-                  activeColor: Colors.white,
+                  activeThumbColor: Colors.white,
                   activeTrackColor: AppColors.primaryclr,
+                  inactiveThumbColor: Colors.white,
+                  inactiveTrackColor: AppColors.txtfieldclr,
+                  trackOutlineColor: WidgetStateProperty.all(
+                    Colors.transparent,
+                  ),
                   onChanged: (val) => setState(() => _biometricEnabled = val),
                 ),
               ),

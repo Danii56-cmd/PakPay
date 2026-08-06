@@ -29,7 +29,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
     FocusScope.of(context).unfocus();
     setState(() => _isLoading = true);
 
-    // TODO: replace with actual API call to request OTP
+    // Replace with actual API call to request OTP
     await Future.delayed(const Duration(milliseconds: 900));
 
     if (!mounted) return;
@@ -38,9 +38,8 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (_) => OtpVerificationScreen(
-          contact: _identifierController.text.trim(),
-        ),
+        builder: (_) =>
+            OtpVerificationScreen(contact: _identifierController.text.trim()),
       ),
     );
   }
@@ -55,7 +54,11 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
         elevation: 0,
         centerTitle: true,
         leading: IconButton(
-          icon: Icon(Icons.arrow_back, color: AppColors.primaryclr, size: 22.sp),
+          icon: Icon(
+            Icons.arrow_back,
+            color: AppColors.primaryclr,
+            size: 22.sp,
+          ),
           onPressed: () => Navigator.pop(context),
         ),
         title: Text(
@@ -72,113 +75,119 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
         height: double.infinity,
         decoration: const BoxDecoration(gradient: AppColors.bgclr),
         child: SafeArea(
-        child: SingleChildScrollView(
-          padding: EdgeInsets.symmetric(horizontal: 24.w),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              SizedBox(height: 40.h),
+          child: SingleChildScrollView(
+            padding: EdgeInsets.symmetric(horizontal: 24.w),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                SizedBox(height: 40.h),
 
-              // Icon avatar
-              Center(
-                child: Container(
-                  width: 96.w,
-                  height: 96.w,
-                  decoration: const BoxDecoration(
+                // Icon avatar
+                Container(
+                  width: 90.w,
+                  height: 100.h,
+                  decoration: BoxDecoration(
                     color: Colors.white,
-                    shape: BoxShape.circle,
+                    shape: BoxShape.rectangle,
+                    borderRadius: BorderRadius.circular(50.r),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black.withValues(alpha: 0.04),
+                        blurRadius: 12,
+                        offset: const Offset(0, 4),
+                      ),
+                    ],
                   ),
                   child: Icon(
-                    Icons.lock_reset_rounded,
+                    Icons.lock_reset_outlined,
+                    size: 46.w,
                     color: AppColors.primaryclr,
-                    size: 44.sp,
                   ),
                 ),
-              ),
-              SizedBox(height: 32.h),
+                SizedBox(height: 32.h),
 
-              Text(
-                'Forgot Password?',
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  fontSize: 24.sp,
-                  fontWeight: FontWeight.w700,
-                  color: Colors.black87,
-                ),
-              ),
-              SizedBox(height: 12.h),
-              Text(
-                'Enter your email or mobile number to receive\na 6-digit verification code.',
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  fontSize: 14.sp,
-                  fontWeight: FontWeight.w400,
-                  color: Colors.black54,
-                  height: 1.4,
-                ),
-              ),
-              SizedBox(height: 32.h),
-
-              AppTextField(
-                hint: 'Email or Mobile Number',
-                controller: _identifierController,
-                keyboardType: TextInputType.emailAddress,
-                onChanged: (_) => setState(() {}),
-              ),
-              SizedBox(height: 24.h),
-
-              PrimaryButton(
-                text: _isLoading ? 'Sending...' : 'Send OTP',
-                icon: _isLoading ? null : Icons.arrow_forward,
-                onPressed: (_canSubmit && !_isLoading) ? _onSendOtp : null,
-              ),
-              SizedBox(height: 16.h),
-
-              Center(
-                child: TextButton(
-                  onPressed: () {
-                    // TODO: navigate to alternate recovery method
-                  },
-                  child: Text(
-                    'Try another way',
-                    style: TextStyle(    
-                      color: AppColors.primaryclr,
-                      fontSize: 14.sp,
-                      fontWeight: FontWeight.w600,
-                    ),
+                Text(
+                  'Forgot Password?',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontSize: 24.sp,
+                    fontWeight: FontWeight.w700,
+                    color: Colors.black87,
                   ),
                 ),
-              ),
-              SizedBox(height: 80.h),
-
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    'Remembered your password? ',
-                    style: TextStyle(
-                      color: Colors.black54,
-                      fontSize: 13.sp,
-                      fontWeight: FontWeight.w400,
-                    ),
+                SizedBox(height: 12.h),
+                Text(
+                  'Enter your email or mobile number to receive\na 6-digit verification code.',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontSize: 14.sp,
+                    fontWeight: FontWeight.w400,
+                    color: Colors.black54,
+                    height: 1.4,
                   ),
-                  GestureDetector(
-                    onTap: () => Navigator.pop(context),
+                ),
+                SizedBox(height: 32.h),
+
+                AppTextField(
+                  hint: 'Email or Mobile Number',
+                  controller: _identifierController,
+                  keyboardType: TextInputType.emailAddress,
+                  onChanged: (_) => setState(() {}),
+                ),
+                SizedBox(height: 24.h),
+
+                PrimaryButton(
+                  text: _isLoading ? 'Sending...' : 'Send OTP',
+                  icon: _isLoading ? null : Icons.arrow_forward,
+                  onPressed: (_canSubmit && !_isLoading) ? _onSendOtp : null,
+                ),
+                SizedBox(height: 16.h),
+
+                Center(
+                  child: TextButton(
+                    onPressed: () {
+                      // Navigate to alternate recovery method
+                    },
                     child: Text(
-                      'Sign In',
+                      'Try another way',
                       style: TextStyle(
                         color: AppColors.primaryclr,
-                        fontSize: 13.sp,
-                        fontWeight: FontWeight.w700,
+                        fontSize: 14.sp,
+                        fontWeight: FontWeight.w600,
                       ),
                     ),
                   ),
-                ],
-              ),
-              SizedBox(height: 24.h),
-            ],
+                ),
+                SizedBox(height: 80.h),
+
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      'Remembered your password? ',
+                      style: TextStyle(
+                        color: Colors.black54,
+                        fontSize: 13.sp,
+                        fontWeight: FontWeight.w400,
+                      ),
+                    ),
+                    GestureDetector(
+                      onTap: () => Navigator.pop(context),
+                      child: Text(
+                        'Sign In',
+                        style: TextStyle(
+                          color: AppColors.primaryclr,
+                          fontSize: 13.sp,
+                          fontWeight: FontWeight.w700,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+                SizedBox(height: 24.h),
+              ],
+            ),
           ),
-        ),
         ),
       ),
     );

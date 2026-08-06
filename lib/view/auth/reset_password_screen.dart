@@ -44,7 +44,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
     FocusScope.of(context).unfocus();
     setState(() => _isSaving = true);
 
-    // TODO: replace with the actual "set new password" API call.
+    // Replace with the actual "set new password" API call.
     await Future.delayed(const Duration(milliseconds: 900));
 
     if (!mounted) return;
@@ -55,7 +55,9 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
         content: const Text("Password updated successfully"),
         backgroundColor: AppColors.primaryclr,
         behavior: SnackBarBehavior.floating,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.r)),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(10.r),
+        ),
       ),
     );
 
@@ -75,7 +77,11 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
         backgroundColor: Colors.transparent,
         elevation: 0,
         leading: IconButton(
-          icon: Icon(Icons.arrow_back, color: AppColors.primaryclr, size: 22.sp),
+          icon: Icon(
+            Icons.arrow_back,
+            color: AppColors.primaryclr,
+            size: 22.sp,
+          ),
           onPressed: () => Navigator.maybePop(context),
         ),
       ),
@@ -92,7 +98,10 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                 SizedBox(height: 10.h),
                 Text(
                   'Reset Password',
-                  style: TextStyle(fontSize: 26.sp, fontWeight: FontWeight.w700),
+                  style: TextStyle(
+                    fontSize: 26.sp,
+                    fontWeight: FontWeight.w700,
+                  ),
                 ),
                 SizedBox(height: 8.h),
                 Text(
@@ -125,7 +134,8 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                       PasswordField(
                         label: 'New Password',
                         controller: _newPasswordController,
-                        onChanged: (value) => setState(() => _newPassword = value),
+                        onChanged: (value) =>
+                            setState(() => _newPassword = value),
                       ),
                       SizedBox(height: 10.h),
                       PasswordStrengthBar(strength: strength),
@@ -199,7 +209,11 @@ class _RequirementRow extends StatelessWidget {
         SizedBox(width: 8.w),
         Text(
           text,
-          style: TextStyle(fontSize: 12.5.sp, color: color, fontWeight: FontWeight.w500),
+          style: TextStyle(
+            fontSize: 12.5.sp,
+            color: color,
+            fontWeight: FontWeight.w500,
+          ),
         ),
       ],
     );

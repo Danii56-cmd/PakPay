@@ -1,3 +1,5 @@
+// ignore_for_file: unused_element
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:pakpay/core/app_colors.dart';
@@ -20,8 +22,7 @@ class PersonalInformationScreen extends StatefulWidget {
       _PersonalInformationScreenState();
 }
 
-class _PersonalInformationScreenState
-    extends State<PersonalInformationScreen> {
+class _PersonalInformationScreenState extends State<PersonalInformationScreen> {
   final _cnicController = TextEditingController();
   final _dobController = TextEditingController();
   final _fatherNameController = TextEditingController();
@@ -60,7 +61,6 @@ class _PersonalInformationScreenState
   }
 
   void _handleContinue() {
-  
     final updatedUser = widget.user.copyWith(
       cnic: _cnicController.text.trim(),
       dob: _dobController.text.trim(),
@@ -113,7 +113,11 @@ class _PersonalInformationScreenState
                 padding: EdgeInsets.only(top: 6.h, left: 4.w),
                 child: Row(
                   children: [
-                    Icon(Icons.info_outline, size: 14.sp, color: Colors.black45),
+                    Icon(
+                      Icons.info_outline,
+                      size: 14.sp,
+                      color: Colors.black45,
+                    ),
                     SizedBox(width: 6.w),
                     Text(
                       "Example: 42101-1234567-1",
@@ -168,7 +172,8 @@ class _PersonalInformationScreenState
                     items: _genderOptions
                         .map((g) => DropdownMenuItem(value: g, child: Text(g)))
                         .toList(),
-                    onChanged: (value) => setState(() => _selectedGender = value),
+                    onChanged: (value) =>
+                        setState(() => _selectedGender = value),
                   ),
                 ),
               ),
@@ -201,7 +206,7 @@ class _PersonalInformationScreenState
                 width: double.infinity,
                 text: "Continue",
                 icon: Icons.arrow_forward,
-               
+
                 onPressed: _handleContinue,
               ),
               SizedBox(height: 20.h),

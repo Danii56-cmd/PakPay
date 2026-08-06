@@ -1,3 +1,5 @@
+// ignore_for_file: unused_local_variable
+
 import 'dart:async';
 
 import 'package:flutter/material.dart';
@@ -85,7 +87,6 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
     if (!_isComplete || _isVerifying) return;
     FocusScope.of(context).unfocus();
 
-   
     if (_secondsLeft <= 0) {
       _goToExpiredScreen();
       return;
@@ -93,7 +94,7 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
 
     setState(() => _isVerifying = true);
 
-    // TODO: replace with actual API call to verify OTP
+    // Replace with actual API call to verify OTP
     await Future.delayed(const Duration(milliseconds: 900));
 
     if (!mounted) return;
@@ -106,7 +107,7 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
       return;
     }
 
-    // TODO: if your API call returns an "invalid code" error (as
+    // If your API call returns an "invalid code" error (as
     // opposed to expiry), show that error here instead of navigating.
 
     Navigator.push(

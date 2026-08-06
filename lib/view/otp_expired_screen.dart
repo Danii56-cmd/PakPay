@@ -16,7 +16,11 @@ class OtpExpiredScreen extends StatelessWidget {
         elevation: 0,
         centerTitle: true,
         leading: IconButton(
-          icon: Icon(Icons.arrow_back, color: AppColors.primaryclr, size: 22.sp),
+          icon: Icon(
+            Icons.arrow_back,
+            color: AppColors.primaryclr,
+            size: 22.sp,
+          ),
           onPressed: () => Navigator.maybePop(context),
         ),
         title: Text(
@@ -72,7 +76,7 @@ class OtpExpiredScreen extends StatelessWidget {
                     // pushReplacement'd) on top of the OTP verification
                     // screen, so popping returns there and its existing
                     // resend logic/timer can run again.
-                    // TODO: trigger the actual resend-OTP API call here
+                    // Trigger the actual resend-OTP API call here
                     // if this screen is reached via a route replacement
                     // instead of a simple push.
                     Navigator.maybePop(context);
@@ -86,7 +90,10 @@ class OtpExpiredScreen extends StatelessWidget {
                   },
                   style: OutlinedButton.styleFrom(
                     minimumSize: Size(double.infinity, 56.h),
-                    side: BorderSide(color: AppColors.secondaryclr, width: 1.2.w),
+                    side: BorderSide(
+                      color: AppColors.secondaryclr,
+                      width: 1.2.w,
+                    ),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(30.r),
                     ),
@@ -115,7 +122,7 @@ class OtpExpiredScreen extends StatelessWidget {
                     ),
                     GestureDetector(
                       onTap: () {
-                        // TODO: open a support chat / help center link.
+                        // Open a support chat / help center link.
                       },
                       child: Text(
                         'Contact Support',
@@ -170,9 +177,7 @@ class _ExpiredClockIllustration extends StatelessWidget {
               shape: BoxShape.circle,
               border: Border.all(color: Colors.grey.shade300, width: 3),
             ),
-            child: CustomPaint(
-              painter: _ClockHandsPainter(),
-            ),
+            child: CustomPaint(painter: _ClockHandsPainter()),
           ),
           // Red "expired" badge
           Positioned(

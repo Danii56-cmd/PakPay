@@ -3,7 +3,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:pakpay/core/app_colors.dart';
 import 'package:pakpay/sharedwidgets/forgot_password_screen.dart';
 import 'package:pakpay/sharedwidgets/primary_button.dart';
-import 'package:pakpay/view/dashboard_screens.dart';
 import 'package:pakpay/view/auth/createaccount/create_account.dart';
 import 'package:pakpay/view/main_screen.dart';
 
@@ -262,6 +261,9 @@ class _LoginScreenState extends State<LoginScreen> {
                   PrimaryButton(
                     icon: Icons.fingerprint,
                     text: "Continue with Biometrics",
+                    buttonColor: Colors.white,
+                    txtcolor: Colors.black,
+                    iconcolor: AppColors.primaryclr,
                     width: 320.w,
                     onPressed: () {},
                   ),

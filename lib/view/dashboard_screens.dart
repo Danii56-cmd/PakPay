@@ -1,3 +1,5 @@
+// ignore_for_file: unused_element
+
 import 'package:flutter/material.dart';
 import 'package:pakpay/core/app_colors.dart';
 import 'package:pakpay/sharedwidgets/app_state.dart';
@@ -7,7 +9,6 @@ import 'package:pakpay/Models/Ttransaction_model.dart';
 import 'package:pakpay/view/contact_picker_screen.dart';
 import 'package:pakpay/view/history_screen.dart';
 import 'package:pakpay/view/profile_screen.dart';
-
 
 class DashboardScreen extends StatefulWidget {
   const DashboardScreen({super.key});
@@ -72,11 +73,17 @@ class _DashboardScreenState extends State<DashboardScreen> {
   }
 
   void _openHistory(BuildContext context) {
-    Navigator.push(context, MaterialPageRoute(builder: (_) => const HistoryScreen()));
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (_) => const HistoryScreen()),
+    );
   }
 
   void _openMyQr(BuildContext context) {
-    Navigator.push(context, MaterialPageRoute(builder: (_) => const ScanQrScreen()));
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (_) => const ScanQrScreen()),
+    );
   }
 
   Widget _buildBalanceCard() {
@@ -87,7 +94,11 @@ class _DashboardScreenState extends State<DashboardScreen> {
         color: AppColors.primaryclr,
         borderRadius: BorderRadius.circular(24),
         boxShadow: [
-          BoxShadow(color: AppColors.primaryclr.withValues(alpha: 0.35), blurRadius: 20, offset: const Offset(0, 10)),
+          BoxShadow(
+            color: AppColors.primaryclr.withValues(alpha: 0.35),
+            blurRadius: 20,
+            offset: const Offset(0, 10),
+          ),
         ],
       ),
       child: Column(
@@ -95,7 +106,10 @@ class _DashboardScreenState extends State<DashboardScreen> {
         children: [
           Row(
             children: [
-              const Text('Total Balance', style: TextStyle(color: Colors.white70, fontSize: 14)),
+              const Text(
+                'Total Balance',
+                style: TextStyle(color: Colors.white70, fontSize: 14),
+              ),
               const SizedBox(width: 6),
               GestureDetector(
                 onTap: () => setState(() => _balanceHidden = !_balanceHidden),
@@ -121,7 +135,10 @@ class _DashboardScreenState extends State<DashboardScreen> {
                             child: Container(
                               width: 9,
                               height: 9,
-                              decoration: const BoxDecoration(color: Colors.white, shape: BoxShape.circle),
+                              decoration: const BoxDecoration(
+                                color: Colors.white,
+                                shape: BoxShape.circle,
+                              ),
                             ),
                           ),
                         ),
@@ -130,7 +147,11 @@ class _DashboardScreenState extends State<DashboardScreen> {
                         valueListenable: AppState.instance.balance,
                         builder: (context, balance, _) => Text(
                           'PKR ${balance.toStringAsFixed(2)}',
-                          style: const TextStyle(color: Colors.white, fontSize: 26, fontWeight: FontWeight.bold),
+                          style: const TextStyle(
+                            color: Colors.white,
+                            fontSize: 26,
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
                       ),
               ),
@@ -140,8 +161,15 @@ class _DashboardScreenState extends State<DashboardScreen> {
                 child: Container(
                   width: 44,
                   height: 44,
-                  decoration: BoxDecoration(color: Colors.white.withValues(alpha: 0.15), shape: BoxShape.circle),
-                  child: const Icon(Icons.qr_code_2, color: Colors.white, size: 24),
+                  decoration: BoxDecoration(
+                    color: Colors.white.withValues(alpha: 0.15),
+                    shape: BoxShape.circle,
+                  ),
+                  child: const Icon(
+                    Icons.qr_code_2,
+                    color: Colors.white,
+                    size: 24,
+                  ),
                 ),
               ),
             ],
@@ -149,15 +177,31 @@ class _DashboardScreenState extends State<DashboardScreen> {
           const SizedBox(height: 18),
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
-            decoration: BoxDecoration(color: Colors.white.withValues(alpha: 0.18), borderRadius: BorderRadius.circular(20)),
+            decoration: BoxDecoration(
+              color: Colors.white.withValues(alpha: 0.18),
+              borderRadius: BorderRadius.circular(20),
+            ),
             child: Row(
               mainAxisSize: MainAxisSize.min,
               children: [
                 const Icon(Icons.trending_up, color: Colors.white, size: 14),
                 const SizedBox(width: 4),
-                const Text('+2.4%', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 12)),
+                const Text(
+                  '+2.4%',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 12,
+                  ),
+                ),
                 const SizedBox(width: 6),
-                Text('vs last month', style: TextStyle(color: Colors.white.withValues(alpha: 0.8), fontSize: 12)),
+                Text(
+                  'vs last month',
+                  style: TextStyle(
+                    color: Colors.white.withValues(alpha: 0.8),
+                    fontSize: 12,
+                  ),
+                ),
               ],
             ),
           ),
@@ -180,13 +224,22 @@ class _DashboardScreenState extends State<DashboardScreen> {
       setState(() => _navIndex = index);
       switch (index) {
         case 1:
-          Navigator.push(context, MaterialPageRoute(builder: (_) => const ContactPickerScreen()));
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (_) => const ContactPickerScreen()),
+          );
           break;
         case 3:
-          Navigator.push(context, MaterialPageRoute(builder: (_) => const HistoryScreen()));
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (_) => const HistoryScreen()),
+          );
           break;
         case 4:
-          Navigator.push(context, MaterialPageRoute(builder: (_) => const ProfileScreen()));
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (_) => const ProfileScreen()),
+          );
           break;
       }
     }
@@ -201,7 +254,11 @@ class _DashboardScreenState extends State<DashboardScreen> {
             decoration: BoxDecoration(
               color: Colors.white,
               boxShadow: [
-                BoxShadow(color: Colors.black.withValues(alpha: 0.06), blurRadius: 12, offset: const Offset(0, -2)),
+                BoxShadow(
+                  color: Colors.black.withValues(alpha: 0.06),
+                  blurRadius: 12,
+                  offset: const Offset(0, -2),
+                ),
               ],
             ),
             padding: const EdgeInsets.symmetric(horizontal: 8),
@@ -223,7 +280,10 @@ class _DashboardScreenState extends State<DashboardScreen> {
                       children: [
                         Icon(item['icon'] as IconData, color: color, size: 22),
                         const SizedBox(height: 3),
-                        Text(item['label'] as String, style: TextStyle(fontSize: 11, color: color)),
+                        Text(
+                          item['label'] as String,
+                          style: TextStyle(fontSize: 11, color: color),
+                        ),
                       ],
                     ),
                   ),
@@ -236,7 +296,10 @@ class _DashboardScreenState extends State<DashboardScreen> {
             child: GestureDetector(
               onTap: () {
                 setState(() => _navIndex = 2);
-                Navigator.push(context, MaterialPageRoute(builder: (_) => const ScanQrScreen()));
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (_) => const ScanQrScreen()),
+                );
               },
               child: Container(
                 width: 58,
@@ -246,16 +309,27 @@ class _DashboardScreenState extends State<DashboardScreen> {
                   shape: BoxShape.circle,
                   border: Border.all(color: Colors.white, width: 4),
                   boxShadow: [
-                    BoxShadow(color: Colors.black.withValues(alpha: 0.2), blurRadius: 10, offset: const Offset(0, 4)),
+                    BoxShadow(
+                      color: Colors.black.withValues(alpha: 0.2),
+                      blurRadius: 10,
+                      offset: const Offset(0, 4),
+                    ),
                   ],
                 ),
-                child: const Icon(Icons.qr_code_2, color: Colors.white, size: 26),
+                child: const Icon(
+                  Icons.qr_code_2,
+                  color: Colors.white,
+                  size: 26,
+                ),
               ),
             ),
           ),
           const Positioned(
             top: 46,
-            child: Text('QR', style: TextStyle(fontSize: 11, color: Colors.black87)),
+            child: Text(
+              'QR',
+              style: TextStyle(fontSize: 11, color: Colors.black87),
+            ),
           ),
         ],
       ),

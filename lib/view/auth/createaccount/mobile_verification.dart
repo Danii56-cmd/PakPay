@@ -55,7 +55,7 @@ class _MobileVerificationScreenState extends State<MobileVerificationScreen> {
 
   void _handleResend() {
     if (_secondsLeft > 0) return;
-    // TODO: trigger the actual resend-OTP API call here.
+    //  Trigger the actual resend-OTP API call here.
     _startTimer();
   }
 

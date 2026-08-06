@@ -76,6 +76,7 @@ class WelcomeScreen extends StatelessWidget {
               SizedBox(height: 10.h),
               PrimaryButton(
                 text: "Create Account",
+                buttonColor: AppColors.secondaryclr,
                 onPressed: () {
                   Navigator.push(
                     context,
@@ -85,14 +86,14 @@ class WelcomeScreen extends StatelessWidget {
                   );
                 },
                 width: 320.w,
-               
               ),
               SizedBox(height: 10.h),
               PrimaryButton(
                 text: "Register as Merchant",
+                txtcolor: Colors.black,
+                buttonColor: Colors.transparent,
                 onPressed: () {},
                 width: 320.w,
-                
               ),
               Spacer(),
               Row(
